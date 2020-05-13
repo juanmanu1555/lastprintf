@@ -481,7 +481,7 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
     }
     len = ft_nbrlen(numb);
 
-    if (((config->precision) != 0 && (config->precision < len)) || (config->precision == -1))
+    if (((config->precision > 0) && (config->precision < len)) || (config->precision == -1))
     {
         if (config->precision == -1 && config->is_minus == 1)
             config->is_minus = 0;
@@ -489,6 +489,13 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
     }
     else if (config->precision > len)
         ceros = config->precision - len;
+
+    if (is_negative && config->precision != 0)
+    {
+        printf("sumando + 1 a precision");
+        len += 1;
+        config->precision += 1;
+    }
 
     if ((config->width < config->precision) || (config->width == 0))
         config->width = config->precision;
