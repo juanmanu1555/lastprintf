@@ -481,26 +481,49 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
     }
     len = ft_nbrlen(numb);
 
-    if (((config->precision > 0) && (config->precision < len)) || (config->precision == -1))
-    {
-        if (config->precision == -1 && config->is_minus == 1)
-            config->is_minus = 0;
-        config->precision = len;
-    }
-    else if (config->precision > len)
-        ceros = config->precision - len;
-
-    if (is_negative && config->precision != 0)
-    {
-        printf("sumando + 1 a precision");
+    if (is_negative == 1 && config->precision > 0)
         len += 1;
-        config->precision += 1;
-    }
+    //"%05i", 43
 
-    if ((config->width < config->precision) || (config->width == 0))
-        config->width = config->precision;
-    else if (config->width < len)
+    // w p != -1
+    //     w
+
+    // w == -1 p != -1
+
+    // w != -1 p == -1
+
+    // p == -1 w == -1
+    //     if p != 0 && is_negative
+    //         len += 1;
+    //         p = len;
+    //         w = p;
+    //     else
+    //         p = len;
+    //         w = p;
+
+    if (config->width < len && config->precision < len)
+    {
+        if (config->precision != 0)
+            config->precision = len;
         config->width = len;
+    }
+    else if (config->width > len && config->precision < len)
+    {
+        if (config->precision != 0)
+            config->precision = len;
+    }
+    else if (config->width < len && config->precision > len)
+    {
+        ceros = config->precision - len;
+        config->width = config->precision;
+    }
+    else if (config->width > len && config->precsion > len)
+    {
+        if (config->width < config->precision)
+
+            config->width = config->precision;
+        ceros = config->precision - len;
+    }
 
     if (config->width > config->precision)
     {
@@ -564,12 +587,25 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
     }
     else
     {
-        if (is_negative == 1)
-            ft_putchar('-');
-        while (ceros > 0)
+        if (config->width_char == '0')
         {
-            ft_putchar('0');
-            ceros--;
+            if (is_negative == 1)
+                ft_putchar('-');
+            while (ceros > 0)
+            {
+                ft_putchar(config->width_char);
+                ceros--;
+            }
+        }
+        else
+        {
+            while (ceros > 0)
+            {
+                ft_putchar(config->width_char);
+                ceros--;
+            }
+            if (is_negative == 1)
+                ft_putchar('-');
         }
 
         // printf("\n%d\n", len);
