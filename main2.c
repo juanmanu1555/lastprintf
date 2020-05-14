@@ -517,13 +517,23 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
         ceros = config->precision - len;
         config->width = config->precision;
     }
-    else if (config->width > len && config->precsion > len)
+    else if (config->width > len && config->precision > len)
     {
         if (config->width < config->precision)
-
             config->width = config->precision;
         ceros = config->precision - len;
     }
+    else if (config->width == len && config->precision > len)
+    {
+        config->width = config->precision;
+    }
+    else if (config->width == len && config->precision == -1)
+        config->precision = len;
+    else if (config->width < len && config->precision > len)
+        config->width = config->precision;
+    else if (config->width < len && config->precision == len)
+        config->width = len;
+
 
     if (config->width > config->precision)
     {
