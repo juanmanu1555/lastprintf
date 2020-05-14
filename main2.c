@@ -552,8 +552,7 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
         config->width = len;
 
 
-    if (config->width > config->precision)
-    {
+   
         if (config->is_minus)
         {
             z += len;
@@ -582,26 +581,34 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
         }
         else
         {
-            if (config->width_char != '0')
+            if (is_negative == 1 && config->width_char == '0')
             {
+                if (is_negative == 1)
+                    ft_putchar('-');
                 while (z < config->width - config->precision)
                 {
                     ft_putchar(config->width_char);
                     z++;
                 }
-                if (is_negative == 1)
-                    ft_putchar('-');
             }
-            else
+            else 
             {
+        
                 while (z < config->width - config->precision)
                 {
-                    ft_putchar(' ');
+                    ft_putchar(config->width_char);
                     z++;
                 }
-                if (is_negative == 1)
+                          if (is_negative == 1)
                     ft_putchar('-');
             }
+            // }
+            // else
+            // {
+
+            // }
+  
+          
             z = 0;
             while (ceros > 0)
             {
@@ -611,34 +618,7 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
             if (config->precision > 0)
                 ft_putnbr(numb);
         }
-    }
-    else
-    {
-        // if (config->width_char == '0')
-        // {
-            if (is_negative == 1)
-                ft_putchar('-');
-            while (ceros > 0)
-            {
-                ft_putchar('0');
-                ceros--;
-            }
-        // }
-        // else
-        // {
-        //     while (ceros > 0)
-        //     {
-        //         ft_putchar(config->width_char);
-        //         ceros--;
-        //     }
-        //     if (is_negative == 1)
-        //         ft_putchar('-');
-        // }
-
-        // printf("\n%d\n", len);
-        if (config->precision > 0)
-            ft_putnbr(numb);
-    }
+      
 }
 
 void printf_arg_unsigned_int(t_config *config, va_list *args, int arg_count)
