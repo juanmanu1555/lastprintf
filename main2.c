@@ -481,7 +481,7 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
     }
     len = ft_nbrlen(numb);
 
-    if (is_negative == 1 && config->precision > 0)
+    if (is_negative == 1 && ((config->precision > 0) || (config->precision == -1)))
         len += 1;
     //"%05i", 43
 
