@@ -516,6 +516,7 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
     {
         if (config->precision != 0)
             config->precision = len;
+        config->width_char = ' ';
     }
     else if (config->width < len && config->precision > len)
     {
@@ -531,6 +532,8 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
         ceros = config->precision - len;
         if (config->width < config->precision)
             config->width = config->precision;
+        else    
+            config->width_char = ' ';
     }
     else if (config->width == len && config->precision > len)
     {
@@ -551,8 +554,7 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
     else if (config->width < len && config->precision == len)
         config->width = len;
 
-
-   
+     
         if (config->is_minus)
         {
             z += len;
