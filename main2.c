@@ -481,12 +481,12 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
     }
     len = ft_nbrlen(numb);
 
-    printf("testing len %i\n", len);
+    //printf("testing len %i\n", len);
     if (is_negative == 1 && ((config->precision > 0) || (config->precision == -1)))
     { 
         len += 1;
     }
-    printf("testing len %i\n", len);
+    //printf("testing len %i\n", len);
 
     //"%05i", 43
 
@@ -519,24 +519,33 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
     }
     else if (config->width < len && config->precision > len)
     {
-        ceros = config->precision - len;
+        if (is_negative)
+            config->precision += 1;
+        ceros = config->precision - len ;
         config->width = config->precision;
     }
     else if (config->width > len && config->precision > len)
     {
+        if (is_negative)
+            config->precision += 1;
+        ceros = config->precision - len;
         if (config->width < config->precision)
             config->width = config->precision;
-        ceros = config->precision - len;
     }
     else if (config->width == len && config->precision > len)
     {
-        config->width = config->precision;
+        if (is_negative)
+            config->precision += 1;
         ceros = config->precision - len;
+        config->width = config->precision;
     }
     else if (config->width == len && config->precision == -1)
         config->precision = len;
     else if (config->width < len && config->precision > len)
-    {    config->width = config->precision;
+    {   
+        if (is_negative)
+            config->precision += 1;
+        config->width = config->precision;
         ceros = config->precision - len;
     }
     else if (config->width < len && config->precision == len)
