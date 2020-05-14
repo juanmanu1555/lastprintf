@@ -605,26 +605,26 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
     }
     else
     {
-        if (config->width_char == '0')
-        {
+        // if (config->width_char == '0')
+        // {
             if (is_negative == 1)
                 ft_putchar('-');
             while (ceros > 0)
             {
-                ft_putchar(config->width_char);
+                ft_putchar('0');
                 ceros--;
             }
-        }
-        else
-        {
-            while (ceros > 0)
-            {
-                ft_putchar(config->width_char);
-                ceros--;
-            }
-            if (is_negative == 1)
-                ft_putchar('-');
-        }
+        // }
+        // else
+        // {
+        //     while (ceros > 0)
+        //     {
+        //         ft_putchar(config->width_char);
+        //         ceros--;
+        //     }
+        //     if (is_negative == 1)
+        //         ft_putchar('-');
+        // }
 
         // printf("\n%d\n", len);
         if (config->precision > 0)
