@@ -2,309 +2,309 @@
 
 void ft_putchar(char c)
 {
-    write(1, &c, 1);
+	write(1, &c, 1);
 }
 
 //00111.01s
 size_t ft_strlen(const char *s)
 {
-    size_t count;
+	size_t count;
 
-    count = 0;
-    while (s[count] != '\0')
-        count++;
-    return (count);
+	count = 0;
+	while (s[count] != '\0')
+		count++;
+	return (count);
 }
 
 void ft_putnbr(int numb)
 {
-    if (numb > 9)
-        ft_putnbr(numb / 10);
+	if (numb > 9)
+		ft_putnbr(numb / 10);
 
-    ft_putchar((numb % 10) + '0');
+	ft_putchar((numb % 10) + '0');
 }
 
 int ft_nbrlen(int numb)
 {
-    int z;
+	int z;
 
-    if (numb >= 0)
-        z = 1;
-    else
-        return (0);
-    while (numb > 9)
-    {
-        numb /= 10;
-        z++;
-    }
-    return (z);
+	if (numb >= 0)
+		z = 1;
+	else
+		return (0);
+	while (numb > 9)
+	{
+		numb /= 10;
+		z++;
+	}
+	return (z);
 }
 
 unsigned long int ft_nbrlenlong(unsigned long int numb)
 {
-    unsigned long int z;
-    if (numb >= 0)
-        z = 1;
-    else
-        return (0);
-    while (numb > 9)
-    {
-        numb /= 10;
-        z++;
-    }
-    return (z);
+	unsigned long int z;
+	if (numb >= 0)
+		z = 1;
+	else
+		return (0);
+	while (numb > 9)
+	{
+		numb /= 10;
+		z++;
+	}
+	return (z);
 }
 
 void ft_putnbrlong(unsigned long int numb)
 {
-    if (numb > 9)
-        ft_putnbr(numb / 10);
+	if (numb > 9)
+		ft_putnbr(numb / 10);
 
-    ft_putchar((numb % 10) + '0');
+	ft_putchar((numb % 10) + '0');
 }
 
 char *ft_strdup(const char *s1)
 {
-    size_t count;
-    size_t len;
-    char *s2;
+	size_t count;
+	size_t len;
+	char *s2;
 
-    len = ft_strlen(s1);
-    if (!(s2 = (char *)malloc((len + 1) * sizeof(const char))))
-        return (NULL);
-    count = 0;
-    while (count <= len)
-    {
-        s2[count] = s1[count];
-        count++;
-    }
-    s2[count] = '\0';
-    return (s2);
+	len = ft_strlen(s1);
+	if (!(s2 = (char *)malloc((len + 1) * sizeof(const char))))
+		return (NULL);
+	count = 0;
+	while (count <= len)
+	{
+		s2[count] = s1[count];
+		count++;
+	}
+	s2[count] = '\0';
+	return (s2);
 }
 
 char *ft_strinv(char *s1)
 {
-    long long int len;
-    char *s2;
-    size_t j;
+	long long int len;
+	char *s2;
+	size_t j;
 
-    j = 0;
-    len = ft_strlen(s1);
-    //printf("\n%llu\n", len);
-    //printf("\n%s\n", s1);
-    if (!(s2 = malloc(sizeof(char) * (len + 1))))
-        return (NULL);
-    while (len > 0)
-    {
-        //printf("\n%c\n", *s1++);
-        s2[j] = s1[len - 1];
-        j++;
-        len--;
-    }
-    s2[j] = 0;
-    //printf("\n%s\n", s2);
-    return (s2);
+	j = 0;
+	len = ft_strlen(s1);
+	//printf("\n%llu\n", len);
+	//printf("\n%s\n", s1);
+	if (!(s2 = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	while (len > 0)
+	{
+		//printf("\n%c\n", *s1++);
+		s2[j] = s1[len - 1];
+		j++;
+		len--;
+	}
+	s2[j] = 0;
+	//printf("\n%s\n", s2);
+	return (s2);
 }
 
 char *ft_utohex(unsigned long int numb, char flag)
 {
-    char *s1;
-    char *s2;
-    unsigned long int res;
-    unsigned long int div;
-    char *hexa_array;
-    int j;
+	char *s1;
+	char *s2;
+	unsigned long int res;
+	unsigned long int div;
+	char *hexa_array;
+	int j;
 
-    if (numb == 0)
-    {
-        s1 = malloc(2);
-        s1[0] = '0';
-        s1[1] = '\0';
-        return (s1);
-    }
-    s1 = malloc(8);
-    res = numb;
-    div = 0;
-    j = 0;
-    //printf("\n%lu\n", res);
+	if (numb == 0)
+	{
+		s1 = malloc(2);
+		s1[0] = '0';
+		s1[1] = '\0';
+		return (s1);
+	}
+	s1 = malloc(8);
+	res = numb;
+	div = 0;
+	j = 0;
+	//printf("\n%lu\n", res);
 
-    if (flag == 'x')
-        hexa_array = ft_strdup("0123456789abcdef");
-    else if (flag = 'X')
-        hexa_array = ft_strdup("0123456789ABCDEF");
-    while (res > 0)
-    {
-        if (numb > 15)
-        {
-            div = numb % 16;
-            numb /= 16;
-            s1[j] = hexa_array[div];
-            res = numb;
-        }
-        else
-        {
-            div = numb;
-            s1[j] = hexa_array[div];
-            res = 0;
-            // numb = 0;
-        }
-        // // if (numb > 15)
+	if (flag == 'x')
+		hexa_array = ft_strdup("0123456789abcdef");
+	else if (flag = 'X')
+		hexa_array = ft_strdup("0123456789ABCDEF");
+	while (res > 0)
+	{
+		if (numb > 15)
+		{
+			div = numb % 16;
+			numb /= 16;
+			s1[j] = hexa_array[div];
+			res = numb;
+		}
+		else
+		{
+			div = numb;
+			s1[j] = hexa_array[div];
+			res = 0;
+			// numb = 0;
+		}
+		// // if (numb > 15)
 
-        // //printf("\n%lu\n", div);
-        // //printf("\n%lu\n", numb);
-        // // numb = res;
+		// //printf("\n%lu\n", div);
+		// //printf("\n%lu\n", numb);
+		// // numb = res;
 
-        // if (numb > 15)
+		// if (numb > 15)
 
-        // else
+		// else
 
-        // div = 0;
-        // // printf("\n%lu\n", numb);
-        j++;
-    }
-    //printf("\n%lu\n", res);
-    s2 = ft_strinv(s1);
-    free(s1);
-    //printf("\n%s\n", s1);
-    return (s2);
+		// div = 0;
+		// // printf("\n%lu\n", numb);
+		j++;
+	}
+	//printf("\n%lu\n", res);
+	s2 = ft_strinv(s1);
+	free(s1);
+	//printf("\n%s\n", s1);
+	return (s2);
 }
 
 void get_number_in_range(int *index, char *s1, int *property, int *property_len)
 {
-    // printf("entra en get number\n");
-    // printf("index:%d\n", *index);
-    // printf("Entrada Desde get number:%d\n", *property_len);
-    while (s1[*index] && (s1[*index] >= '0' && s1[*index] <= '9'))
-    {
-        if (*property == 0)
-            *property += (s1[*index] - '0');
-        else
-            *property = (s1[*index] - '0') + 10 * (*property);
-        *index += 1;
-        *property_len += 1;
-    }
-    // printf("Salida Desde get number:%d\n", *property_len);
+	// printf("entra en get number\n");
+	// printf("index:%d\n", *index);
+	// printf("Entrada Desde get number:%d\n", *property_len);
+	while (s1[*index] && (s1[*index] >= '0' && s1[*index] <= '9'))
+	{
+		if (*property == 0)
+			*property += (s1[*index] - '0');
+		else
+			*property = (s1[*index] - '0') + 10 * (*property);
+		*index += 1;
+		*property_len += 1;
+	}
+	// printf("Salida Desde get number:%d\n", *property_len);
 }
 
 int validate_cero_or_minus(int *index, char *s1, t_config *config)
 {
-    if (!(s1[*index] || s1[*index] == '0' || s1[*index] == '-'))
-        return (0);
-    while (s1[*index] == '0' || s1[*index] == '-')
-    {
-        if (s1[*index] == '0' && config->is_minus == 0 && config->width_char == ' ')
-        {
-            config->width_char = '0';
-            config->is_cero = 1;
-        }
-        if (s1[*index] == '-' && config->is_minus == 0)
-        {
-            config->width_char = ' ';
-            config->is_minus = 1;
-        }
-        *index += 1;
-    }
-    return (1);
+	if (!(s1[*index] || s1[*index] == '0' || s1[*index] == '-'))
+		return (0);
+	while (s1[*index] == '0' || s1[*index] == '-')
+	{
+		if (s1[*index] == '0' && config->is_minus == 0 && config->width_char == ' ')
+		{
+			config->width_char = '0';
+			config->is_cero = 1;
+		}
+		if (s1[*index] == '-' && config->is_minus == 0)
+		{
+			config->width_char = ' ';
+			config->is_minus = 1;
+		}
+		*index += 1;
+	}
+	return (1);
 }
 
 int validate_width(int *index, char *s1, t_config *config)
 {
-    if (!(s1[*index] && (s1[*index] >= '1' && s1[*index] <= '9')))
-        return (0);
-    get_number_in_range(index, s1, &config->width, &config->width_len);
-    return (1);
+	if (!(s1[*index] && (s1[*index] >= '1' && s1[*index] <= '9')))
+		return (0);
+	get_number_in_range(index, s1, &config->width, &config->width_len);
+	return (1);
 }
 
 int validate_precision(int *index, char *s1, t_config *config)
 {
-    // printf("entra en precision\n");
-    // printf("%d\n", *index);
+	// printf("entra en precision\n");
+	// printf("%d\n", *index);
 
-    while (s1[*index] == '0')
-        *index += 1;
-    if (s1[*index] && (s1[*index] >= '1' && s1[*index] <= '9'))
-        get_number_in_range(index, s1, &config->precision, &config->precision_len);
-    // if (!(s1[*index] && (s1[*index] >= '1' && s1[*index] <= '9')))
-    //     return (0);
-    // get_number_in_range(index, s1, &config->precision, &config->precision_len);
-    return (1);
+	while (s1[*index] == '0')
+		*index += 1;
+	if (s1[*index] && (s1[*index] >= '1' && s1[*index] <= '9'))
+		get_number_in_range(index, s1, &config->precision, &config->precision_len);
+	// if (!(s1[*index] && (s1[*index] >= '1' && s1[*index] <= '9')))
+	//     return (0);
+	// get_number_in_range(index, s1, &config->precision, &config->precision_len);
+	return (1);
 }
 
 int validate_flag(int *index, char *s1, t_config *config)
 {
-    // printf("entra en flag\n");
-    // printf("%d\n", *index);
-    if (!s1[*index])
-        return (0);
-    if (s1[*index] != 'c' && s1[*index] != 's' && s1[*index] != 'p' &&
-        s1[*index] != 'd' && s1[*index] != 'i' && s1[*index] != 'i' && s1[*index] != 'u' &&
-        s1[*index] != 'x' && s1[*index] != 'X')
-        return (0);
-    config->flag = s1[*index];
-    return (1);
+	// printf("entra en flag\n");
+	// printf("%d\n", *index);
+	if (!s1[*index])
+		return (0);
+	if (s1[*index] != 'c' && s1[*index] != 's' && s1[*index] != 'p' &&
+			s1[*index] != 'd' && s1[*index] != 'i' && s1[*index] != 'i' && s1[*index] != 'u' &&
+			s1[*index] != 'x' && s1[*index] != 'X')
+		return (0);
+	config->flag = s1[*index];
+	return (1);
 }
 
 int regex_validate(int *index, char *s1, t_config *config)
 {
-    // int     index;
+	// int     index;
 
-    // es facil la implementacion para el * de sustitucion de valor de width o precision
-    //index = 0;
-    if (s1[*index] == '0' || s1[*index] == '-')
-    {
-        //printf("entra en 0 or minus\n");
-        if (!(validate_cero_or_minus(index, s1, config)))
-            return (0);
-        // if (!(validate_width(&index, s1, config)))
-        //     return (0);
-    }
+	// es facil la implementacion para el * de sustitucion de valor de width o precision
+	//index = 0;
+	if (s1[*index] == '0' || s1[*index] == '-')
+	{
+		//printf("entra en 0 or minus\n");
+		if (!(validate_cero_or_minus(index, s1, config)))
+			return (0);
+		// if (!(validate_width(&index, s1, config)))
+		//     return (0);
+	}
 
-    if (s1[*index] == '*')
-    {
-        config->is_width_arg = 1;
-        *index += 1;
-    }
-    else
-    {
-        if (s1[*index] >= '1' && s1[*index] <= '9')
-        {
-            //printf("entra en width\n");
-            if (!(validate_width(index, s1, config)))
-                return (0);
-        }
-    }
-    //printf("Lleaga a punto");
-    if (s1[*index] == '.')
-    {
-        //printf("entra en precision\n");
-        *index += 1;
-        config->precision = 0;
-        //printf("%c", s1[*index]);
-        if (s1[*index] == '*')
-        {
-            config->is_precision_arg = 1;
-            *index += 1;
-        }
-        else if (s1[*index] && (s1[*index] >= '0' && s1[*index] <= '9'))
-        {
-            if (!(validate_precision(index, s1, config)))
-                return (0);
-        }
-        else
-        {
-            //printf("entra en precision\n");
-            if (!(validate_flag(index, s1, config)))
-                return (0);
-            return (1);
-        }
-    }
+	if (s1[*index] == '*')
+	{
+		config->is_width_arg = 1;
+		*index += 1;
+	}
+	else
+	{
+		if (s1[*index] >= '1' && s1[*index] <= '9')
+		{
+			//printf("entra en width\n");
+			if (!(validate_width(index, s1, config)))
+				return (0);
+		}
+	}
+	//printf("Lleaga a punto");
+	if (s1[*index] == '.')
+	{
+		//printf("entra en precision\n");
+		*index += 1;
+		config->precision = 0;
+		//printf("%c", s1[*index]);
+		if (s1[*index] == '*')
+		{
+			config->is_precision_arg = 1;
+			*index += 1;
+		}
+		else if (s1[*index] && (s1[*index] >= '0' && s1[*index] <= '9'))
+		{
+			if (!(validate_precision(index, s1, config)))
+				return (0);
+		}
+		else
+		{
+			//printf("entra en precision\n");
+			if (!(validate_flag(index, s1, config)))
+				return (0);
+			return (1);
+		}
+	}
 
-    //printf("entra en flag\n");
-    if (!(validate_flag(index, s1, config)))
-        return (0);
-    //*index += 1;
-    //printf("sale correcto en flag\n");
-    return (1);
+	//printf("entra en flag\n");
+	if (!(validate_flag(index, s1, config)))
+		return (0);
+	//*index += 1;
+	//printf("sale correcto en flag\n");
+	return (1);
 }
 
 // int    flag_s(t_config, *config, va_list *args)
@@ -352,696 +352,697 @@ int regex_validate(int *index, char *s1, t_config *config)
 
 void printf_arg(t_config *config, va_list *args, int arg_count)
 {
-    //printf("entra en printf arg");
-    int z;
-    int len;
-    char *s2;
-    char *s3;
-    int p;
+	//printf("entra en printf arg");
+	int z;
+	int len;
+	char *s2;
+	char *s3;
+	int p;
 
-    z = 0;
-    arg_count = arg_count + 1;
+	z = 0;
+	arg_count = arg_count + 1;
 
-    if (config->is_width_arg == 1)
-    {
-        config->width = va_arg(*args, int);
-        if (config->width < 0)
-        {
-            config->width *= -1;
-            config->is_minus = 1;
-        }
-    }
-    if (config->is_precision_arg == 1)
-        config->precision = va_arg(*args, int);
+	if (config->is_width_arg == 1)
+	{
+		config->width = va_arg(*args, int);
+		if (config->width < 0)
+		{
+			config->width *= -1;
+			config->is_minus = 1;
+		}
+	}
+	if (config->is_precision_arg == 1)
+		config->precision = va_arg(*args, int);
 
-    //printf("Este es el valor de width por argumento:%d", p);
+	//printf("Este es el valor de width por argumento:%d", p);
 
-    // Aqui extraemos el argumento que nos pasan lo que voy a hacer es una funcion donde pille todos los casos
-    // de si es string int hexadecimal decimal float etc y meterlo todo en string asi es mucho mas facil trabajar con ello.
-    if ((s3 = va_arg(*args, char *)) == NULL)
-    {
+	// Aqui extraemos el argumento que nos pasan lo que voy a hacer es una funcion donde pille todos los casos
+	// de si es string int hexadecimal decimal float etc y meterlo todo en string asi es mucho mas facil trabajar con ello.
+	if ((s3 = va_arg(*args, char *)) == NULL)
+	{
 
-        s3 = ft_strdup("(null)");
+		s3 = ft_strdup("(null)");
 
-        // nose si esto es necesario dado que en este momento no tengo lo test. y no estoy en MAC
-        // en linux si te pasan NULL y precision menor de 6 el "(null)" nose escribe ni cuenta.
-        // if (config->precision >= 6 || config->precision == -1)
-        //     s3 = ft_strdup("(null)");
-        //     else
-        //       s3 = ft_strdup("");
-        // config->width += 6;
-        //printf("%d\n", config->width);
-    }
+		// nose si esto es necesario dado que en este momento no tengo lo test. y no estoy en MAC
+		// en linux si te pasan NULL y precision menor de 6 el "(null)" nose escribe ni cuenta.
+		// if (config->precision >= 6 || config->precision == -1)
+		//     s3 = ft_strdup("(null)");
+		//     else
+		//       s3 = ft_strdup("");
+		// config->width += 6;
+		//printf("%d\n", config->width);
+	}
 
-    s2 = ft_strdup(s3);
-    len = (int)ft_strlen(s2);
+	s2 = ft_strdup(s3);
+	len = (int)ft_strlen(s2);
 
-    if (config->precision > len || config->precision == -1)
-        config->precision = len;
+	if (config->precision > len || config->precision == -1)
+		config->precision = len;
 
-    if ((config->width == 0) || (config->width < config->precision))
-        config->width = config->precision;
+	if ((config->width == 0) || (config->width < config->precision))
+		config->width = config->precision;
 
-    // printf("config width:%d\n", config->width);
-    // printf("config precision:%d\n", config->precision);
+	// printf("config width:%d\n", config->width);
+	// printf("config precision:%d\n", config->precision);
 
-    if (config->width > config->precision)
-    {
-        if (config->is_minus)
-        {
-            while (z < config->precision)
-            {
-                ft_putchar(s2[z]);
-                z++;
-            }
+	if (config->width > config->precision)
+	{
+		if (config->is_minus)
+		{
+			while (z < config->precision)
+			{
+				ft_putchar(s2[z]);
+				z++;
+			}
 
-            while (z < config->width)
-            {
-                ft_putchar(config->width_char);
-                z++;
-            }
-        }
-        else
-        {
-            while (z < config->width - config->precision)
-            {
-                ft_putchar(config->width_char);
-                z++;
-            }
-            z = 0;
-            while (z < config->precision)
-            {
-                ft_putchar(s2[z]);
-                z++;
-            }
-        }
-    }
-    else
-    {
-        while (z < config->precision)
-        {
-            ft_putchar(s2[z]);
-            z++;
-        }
-    }
-    free(s2);
+			while (z < config->width)
+			{
+				ft_putchar(config->width_char);
+				z++;
+			}
+		}
+		else
+		{
+			while (z < config->width - config->precision)
+			{
+				ft_putchar(config->width_char);
+				z++;
+			}
+			z = 0;
+			while (z < config->precision)
+			{
+				ft_putchar(s2[z]);
+				z++;
+			}
+		}
+	}
+	else
+	{
+		while (z < config->precision)
+		{
+			ft_putchar(s2[z]);
+			z++;
+		}
+	}
+	free(s2);
 }
 
 void printf_arg_int(t_config *config, va_list *args, int arg_count)
 {
-    // Posdata usar long en ints y unsigned long int en unsigned
-    int z;
-    int len;
-    long numb;
-    int is_negative;
-    int ceros;
+	// Posdata usar long en ints y unsigned long int en unsigned
+	int z;
+	int len;
+	long numb;
+	int is_negative;
+	int ceros;
 
-    z = 0;
-    ceros = 0;
-    is_negative = 0;
+	z = 0;
+	ceros = 0;
+	is_negative = 0;
 
-    if (config->is_width_arg == 1)
-    {
-        config->width = va_arg(*args, int);
-        if (config->width < 0)
-        {
-            config->width *= -1;
-            config->is_minus = 1;
-        }
-    }
-    if (config->is_precision_arg == 1)
-        config->precision = va_arg(*args, int);
+	if (config->is_width_arg == 1)
+	{
+		config->width = va_arg(*args, int);
+		if (config->width < 0)
+		{
+			config->width *= -1;
+			config->is_minus = 1;
+		}
+	}
+	if (config->is_precision_arg == 1)
+		config->precision = va_arg(*args, int);
 
-    arg_count = arg_count + 1;
-    numb = (long)va_arg(*args, int);
-    if (numb < 0)
-    {
-        numb *= -1;
-        is_negative = 1;
-    }
-    len = ft_nbrlen(numb);
+	arg_count = arg_count + 1;
+	numb = (long)va_arg(*args, int);
+	if (numb < 0)
+	{
+		numb *= -1;
+		is_negative = 1;
+	}
+	len = ft_nbrlen(numb);
 
-    //printf("testing len %i\n", len);
-    if (is_negative == 1 && ((config->precision > 0) || (config->precision == -1)))
-    { 
-        len += 1;
-    }
-    //printf("testing len %i\n", len);
+	//printf("testing len %i\n", len);
+	if (is_negative == 1 && ((config->precision > 0) || (config->precision == -1)))
+	{ 
+		len += 1;
+	}
+	//printf("testing len %i\n", len);
 
-    //"%05i", 43
+	//"%05i", 43
 
-    // w p != -1
-    //     w
+	// w p != -1
+	//     w
 
-    // w == -1 p != -1
+	// w == -1 p != -1
 
-    // w != -1 p == -1
+	// w != -1 p == -1
 
-    // p == -1 w == -1
-    //     if p != 0 && is_negative
-    //         len += 1;
-    //         p = len;
-    //         w = p;
-    //     else
-    //         p = len;
-    //         w = p;
+	// p == -1 w == -1
+	//     if p != 0 && is_negative
+	//         len += 1;
+	//         p = len;
+	//         w = p;
+	//     else
+	//         p = len;
+	//         w = p;
 
-    if (config->width < len && config->precision < len)
-    {
-        if (config->precision != 0)
-            config->precision = len;
-        config->width = len;
-    }
-    else if (config->width > len && config->precision < len)
-    {
-        if (config->precision != 0)
-            config->precision = len;
-        if (config->is_cero == 0)
-            config->width_char = ' ';
-        else 
-              config->width_char = '0';
-    }
-    else if (config->width < len && config->precision > len)
-    {
-        if (is_negative)
-            config->precision += 1;
-        ceros = config->precision - len ;
-        config->width = config->precision;
-    }
-    else if (config->width > len && config->precision > len)
-    {
-        if (is_negative)
-            config->precision += 1;
-        ceros = config->precision - len;
-        if (config->width < config->precision)
-            config->width = config->precision;
-        else    
-            config->width_char = ' ';
-    }
-    else if (config->width == len && config->precision > len)
-    {
-        if (is_negative)
-            config->precision += 1;
-        ceros = config->precision - len;
-        config->width = config->precision;
-    }
-    else if (config->width == len && config->precision == -1)
-        config->precision = len;
-    else if (config->width < len && config->precision > len)
-    {   
-        if (is_negative)
-            config->precision += 1;
-        config->width = config->precision;
-        ceros = config->precision - len;
-    }
-    else if (config->width < len && config->precision == len)
-        config->width = len;
+	if (config->width < len && config->precision < len)
+	{
+		if (config->precision != 0)
+			config->precision = len;
+		config->width = len;
+	}
+	else if (config->width > len && config->precision < len)
+	{
+		if (config->precision != 0)
+			config->precision = len;
+		if (config->is_cero == 0)
+			config->width_char = ' ';
+		else 
+			config->width_char = '0';
+	}
+	else if (config->width < len && config->precision > len)
+	{
+		if (is_negative)
+			config->precision += 1;
+		ceros = config->precision - len ;
+		config->width = config->precision;
+	}
+	else if (config->width > len && config->precision > len)
+	{
+		if (is_negative)
+			config->precision += 1;
+		ceros = config->precision - len;
+		if (config->width < config->precision)
+			config->width = config->precision;
+		else    
+			config->width_char = ' ';
+	}
+	else if (config->width == len && config->precision > len)
+	{
+		if (is_negative)
+			config->precision += 1;
+		ceros = config->precision - len;
+		config->width = config->precision;
+	}
+	else if (config->width == len && config->precision == -1)
+		config->precision = len;
+	else if (config->width < len && config->precision > len)
+	{   
+		if (is_negative)
+			config->precision += 1;
+		config->width = config->precision;
+		ceros = config->precision - len;
+	}
+	else if (config->width < len && config->precision == len)
+	{ 
+		config->width = len;
+	}
 
-           if (config->is_minus)
-        {
-            z += len;
-            if (is_negative == 1)
-            {
-                ft_putchar('-');
-            }
+	if (config->is_minus)
+	{
+		z += len;
+		if (is_negative == 1)
+		{
+			ft_putchar('-');
+		}
 
-         
-            while (ceros > 0)
-            {
-                ft_putchar('0');
-                ceros--;
-                z++;
-            }
 
-            // El error es que printeo el numero entero sin
-            // x caracteres y lo que necesito es decidir
-            // cuantos quiero 3 5 o el valor que sea.
-            if (config->precision > 0)
-                ft_putnbrlong(numb);
+		while (ceros > 0)
+		{
+			ft_putchar('0');
+			ceros--;
+			z++;
+		}
 
-            while (z < config->width)
-            {
-                ft_putchar(config->width_char);
-                z++;
-            }
-        }
-        else if (config->is_cero)
-        {
-            if (config->width > config->precision && config->precision)
-                config->width_char = ' ';
-             z += len;
-            if (is_negative == 1)
-            {
-                ft_putchar('-');
-            }
-            while (z < config->width - config->precision)
-            {
-                ft_putchar(config->width_char);
-                z++;
-            }
-            while (ceros > 0)
-            {
-                ft_putchar('0');
-                ceros--;
-                z++;
-            }
+		// El error es que printeo el numero entero sin
+		// x caracteres y lo que necesito es decidir
+		// cuantos quiero 3 5 o el valor que sea.
+		if (config->precision > 0)
+			ft_putnbrlong(numb);
 
-            if (config->precision > 0)
-                ft_putnbrlong(numb);
+		while (z < config->width)
+		{
+			ft_putchar(config->width_char);
+			z++;
+		}
+	}
+	else if (config->is_cero)
+	{
+		if (config->width > config->precision && config->precision)
+			config->width_char = ' ';
+		z += len;
+		if (is_negative == 1)
+		{
+			ft_putchar('-');
+		}
+		while (z < config->width - config->precision)
+		{
+			ft_putchar(config->width_char);
+			z++;
+		}
+		while (ceros > 0)
+		{
+			ft_putchar('0');
+			ceros--;
+			z++;
+		}
 
-         
-        }
-        else
-        {
-            z += len;
-            while (z < config->width - config->precision)
-            {
-                ft_putchar(config->width_char);
-                z++;
-            }
-            if (is_negative == 1)
-            {
-                ft_putchar('-');
-            }
-            while (ceros > 0)
-            {
-                ft_putchar('0');
-                ceros--;
-                z++;
-            }
+		if (config->precision > 0)
+			ft_putnbrlong(numb);
 
-            if (config->precision > 0)
-                ft_putnbrlong(numb);
-        }
 
-      
+	}
+	else
+	{
+		z += len;
+		while (z < config->width - config->precision)
+		{
+			ft_putchar(config->width_char);
+			z++;
+		}
+		if (is_negative == 1)
+		{
+			ft_putchar('-');
+		}
+		while (ceros > 0)
+		{
+			ft_putchar('0');
+			ceros--;
+			z++;
+		}
+
+		if (config->precision > 0)
+			ft_putnbrlong(numb);
+	}
+
 }
 
 void printf_arg_unsigned_int(t_config *config, va_list *args, int arg_count)
 {
-    // Posdata usar long en ints y unsigned long int en unsigned
-    int z;
-    int len;
-    unsigned long int numb;
-    int is_negative;
-    int ceros;
+	// Posdata usar long en ints y unsigned long int en unsigned
+	int z;
+	int len;
+	unsigned long int numb;
+	int is_negative;
+	int ceros;
 
-    z = 0;
-    ceros = 0;
-    is_negative = 0;
-    arg_count = arg_count + 1;
-    numb = va_arg(*args, unsigned int);
-    if (numb < 0)
-    {
-        numb *= -1;
-        is_negative = 1;
-    }
+	z = 0;
+	ceros = 0;
+	is_negative = 0;
+	arg_count = arg_count + 1;
+	numb = va_arg(*args, unsigned int);
+	if (numb < 0)
+	{
+		numb *= -1;
+		is_negative = 1;
+	}
 
-    len = ft_nbrlenlong(numb);
-    //config->width_char = ' ';
+	len = ft_nbrlenlong(numb);
+	//config->width_char = ' ';
 
-    //printf("\nlen:%d\n", len);
-    //printf("\n%d\n", config->precision);
-    // if (config->precision == -1 && config->width > 0)
-    //printf("\n%c\n", config->width_char);
-    if (config->width > config->precision && config->precision != -1)
-        config->width_char = ' ';
-    if (config->precision > len)
-        ceros = config->precision - len;
-    else if (config->precision < len && config->precision > 0 || config->precision == -1)
-        config->precision = len;
-    //printf("\nprecision:%d\n", config->precision);
+	//printf("\nlen:%d\n", len);
+	//printf("\n%d\n", config->precision);
+	// if (config->precision == -1 && config->width > 0)
+	//printf("\n%c\n", config->width_char);
+	if (config->width > config->precision && config->precision != -1)
+		config->width_char = ' ';
+	if (config->precision > len)
+		ceros = config->precision - len;
+	else if (config->precision < len && config->precision > 0 || config->precision == -1)
+		config->precision = len;
+	//printf("\nprecision:%d\n", config->precision);
 
-    //if (config->precsion)
+	//if (config->precsion)
 
-    if (is_negative && config->precision != 0)
-    {
-        len += 1;
-        config->precision += 1;
-    }
+	if (is_negative && config->precision != 0)
+	{
+		len += 1;
+		config->precision += 1;
+	}
 
-    if (config->is_minus == 1 && config->precision == 0)
-        config->is_minus = 0;
+	if (config->is_minus == 1 && config->precision == 0)
+		config->is_minus = 0;
 
-    //printf("\nTelica%d\n", ceros);
-    if ((config->width == 0) || (config->width < config->precision))
-        config->width = config->precision;
-    else if (config->width < len)
-        config->width = len;
+	//printf("\nTelica%d\n", ceros);
+	if ((config->width == 0) || (config->width < config->precision))
+		config->width = config->precision;
+	else if (config->width < len)
+		config->width = len;
 
 
-    //  if minus
-    //     -negative write negative
-    //     -ceros
-    //     -number
-    //     -espacios.
-    // else if is-ceros
-    //     -negative
-    //     -ceros char
-    //     -ceros
-    //     -number
-    // else 
-    //     - espaces char
-    //     -negative
-    //     -ceros
-    //     -number
-    
-    
-    if (config->width > config->precision)
-    {
-        //config->width_char = ' ';
-        if (config->is_minus)
-        {
-            z += len;
-            if (is_negative == 1)
-            {
-                ft_putchar('-');
-            }
-            while (ceros > 0)
-            {
-                ft_putchar('0');
-                ceros--;
-                z++;
-            }
+	//  if minus
+	//     -negative write negative
+	//     -ceros
+	//     -number
+	//     -espacios.
+	// else if is-ceros
+	//     -negative
+	//     -ceros char
+	//     -ceros
+	//     -number
+	// else 
+	//     - espaces char
+	//     -negative
+	//     -ceros
+	//     -number
 
-            // El error es que printeo el numero entero sin
-            // x caracteres y lo que necesito es decidir
-            // cuantos quiero 3 5 o el valor que sea.
-            if (config->precision > 0)
-                ft_putnbrlong(numb);
 
-            while (z < config->width)
-            {
-                ft_putchar(config->width_char);
-                z++;
-            }
-        }
-        else
-        {
+	if (config->width > config->precision)
+	{
+		//config->width_char = ' ';
+		if (config->is_minus)
+		{
+			z += len;
+			if (is_negative == 1)
+			{
+				ft_putchar('-');
+			}
+			while (ceros > 0)
+			{
+				ft_putchar('0');
+				ceros--;
+				z++;
+			}
 
-            while (z < config->width - config->precision)
-            {
-                ft_putchar(config->width_char);
-                z++;
-            }
+			// El error es que printeo el numero entero sin
+			// x caracteres y lo que necesito es decidir
+			// cuantos quiero 3 5 o el valor que sea.
+			if (config->precision > 0)
+				ft_putnbrlong(numb);
 
-            z = 0;
-            while (ceros > 0)
-            {
-                ft_putchar('0');
-                ceros--;
-            }
-            if (config->precision > 0)
-                ft_putnbrlong(numb);
-        }
-    }
-    else
-    {
-        while (ceros > 0)
-        {
-            ft_putchar('0');
-            ceros--;
-        }
-        if (config->precision > 0)
-            ft_putnbrlong(numb);
-    }
+			while (z < config->width)
+			{
+				ft_putchar(config->width_char);
+				z++;
+			}
+		}
+		else
+		{
+
+			while (z < config->width - config->precision)
+			{
+				ft_putchar(config->width_char);
+				z++;
+			}
+
+			z = 0;
+			while (ceros > 0)
+			{
+				ft_putchar('0');
+				ceros--;
+			}
+			if (config->precision > 0)
+				ft_putnbrlong(numb);
+		}
+	}
+	else
+	{
+		while (ceros > 0)
+		{
+			ft_putchar('0');
+			ceros--;
+		}
+		if (config->precision > 0)
+			ft_putnbrlong(numb);
+	}
 }
 
 void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 {
-    int z;
-    int len;
-    unsigned long int numb;
-    char *s1;
-    char *s2;
-    int is_negative;
-    int ceros;
-    int j;
+	int z;
+	int len;
+	unsigned long int numb;
+	char *s1;
+	char *s2;
+	int is_negative;
+	int ceros;
+	int j;
 
-    j = 0;
-    z = 0;
-    ceros = 0;
-    is_negative = 0;
-    arg_count = arg_count + 1;
-    numb = va_arg(*args, unsigned int);
-    if (numb < 0)
-    {
-        numb *= -1;
-        is_negative = 1;
-    }
+	j = 0;
+	z = 0;
+	ceros = 0;
+	is_negative = 0;
+	arg_count = arg_count + 1;
+	numb = va_arg(*args, unsigned int);
+	if (numb < 0)
+	{
+		numb *= -1;
+		is_negative = 1;
+	}
 
-    s2 = ft_utohex(numb, config->flag);
-    s1 = ft_strdup(s2);
-    free(s2);
-    len = ft_strlen(s1);
+	s2 = ft_utohex(numb, config->flag);
+	s1 = ft_strdup(s2);
+	free(s2);
+	len = ft_strlen(s1);
 
-    if (config->width > config->precision && config->precision != -1)
-        config->width_char = ' ';
+	if (config->width > config->precision && config->precision != -1)
+		config->width_char = ' ';
 
-    if (config->precision > len)
-        ceros = config->precision - len;
-    else if (config->precision < len && config->precision > 0 || config->precision == -1)
-        config->precision = len;
+	if (config->precision > len)
+		ceros = config->precision - len;
+	else if (config->precision < len && config->precision > 0 || config->precision == -1)
+		config->precision = len;
 
-    if (is_negative && config->precision != 0)
-    {
-        len += 1;
-        config->precision += 1;
-    }
+	if (is_negative && config->precision != 0)
+	{
+		len += 1;
+		config->precision += 1;
+	}
 
-    if (config->is_minus == 1 && config->precision == 0)
-        config->is_minus = 0;
+	if (config->is_minus == 1 && config->precision == 0)
+		config->is_minus = 0;
 
-    //printf("\nTelica%d\n", ceros);
-    if ((config->width == 0) || (config->width < config->precision))
-        config->width = config->precision;
-    else if (config->width < len)
-        config->width = len;
+	//printf("\nTelica%d\n", ceros);
+	if ((config->width == 0) || (config->width < config->precision))
+		config->width = config->precision;
+	else if (config->width < len)
+		config->width = len;
 
-    if (config->width > config->precision)
-    {
-        //config->width_char = ' ';
-        if (config->is_minus)
-        {
-            z += len;
+	if (config->width > config->precision)
+	{
+		//config->width_char = ' ';
+		if (config->is_minus)
+		{
+			z += len;
 
-            while (ceros > 0)
-            {
-                ft_putchar('0');
-                ceros--;
-                z++;
-            }
+			while (ceros > 0)
+			{
+				ft_putchar('0');
+				ceros--;
+				z++;
+			}
 
-            // El error es que printeo el numero entero sin
-            // x caracteres y lo que necesito es decidir
-            // cuantos quiero 3 5 o el valor que sea.
-            if (config->precision > 0)
-            {
-                if (config->flag == 'p')
-                {
-                    ft_putchar('0');
-                    ft_putchar('x');
-                    config->width += 2;
-                }
-                while (j < len)
-                {
-                    ft_putchar(s1[j]);
-                    j++;
-                }
-            }
+			// El error es que printeo el numero entero sin
+			// x caracteres y lo que necesito es decidir
+			// cuantos quiero 3 5 o el valor que sea.
+			if (config->precision > 0)
+			{
+				if (config->flag == 'p')
+				{
+					ft_putchar('0');
+					ft_putchar('x');
+					config->width += 2;
+				}
+				while (j < len)
+				{
+					ft_putchar(s1[j]);
+					j++;
+				}
+			}
 
-            while (z < config->width)
-            {
-                ft_putchar(config->width_char);
-                z++;
-            }
-        }
-        else
-        {
-            if (config->flag == 'p')
-                config->width -= 2;
+			while (z < config->width)
+			{
+				ft_putchar(config->width_char);
+				z++;
+			}
+		}
+		else
+		{
+			if (config->flag == 'p')
+				config->width -= 2;
 
-            while (z < config->width - config->precision)
-            {
-                ft_putchar(config->width_char);
-                z++;
-            }
+			while (z < config->width - config->precision)
+			{
+				ft_putchar(config->width_char);
+				z++;
+			}
 
-            z = 0;
-            if (config->flag == 'p')
-            {
-                ft_putchar('0');
-                ft_putchar('x');
-                config->width += 2;
-            }
-            while (ceros > 0)
-            {
-                ft_putchar('0');
-                ceros--;
-            }
-            if (config->precision > 0)
-            {
-                while (j < len)
-                {
-                    ft_putchar(s1[j]);
-                    j++;
-                }
-            }
-        }
-    }
-    else
-    {
-        if (config->flag == 'p')
-            ceros -= 2;
-        while (ceros > 0)
-        {
-            ft_putchar('0');
-            ceros--;
-        }
-        if (config->precision > 0)
-        {
-            if (config->flag == 'p')
-            {
-                ft_putchar('0');
-                ft_putchar('x');
-                //config->width += 2;
-            }
-            //j += 2;
-            while (j < len)
-            {
-                ft_putchar(s1[j]);
-                j++;
-            }
-        }
-    }
-    free(s1);
+			z = 0;
+			if (config->flag == 'p')
+			{
+				ft_putchar('0');
+				ft_putchar('x');
+				config->width += 2;
+			}
+			while (ceros > 0)
+			{
+				ft_putchar('0');
+				ceros--;
+			}
+			if (config->precision > 0)
+			{
+				while (j < len)
+				{
+					ft_putchar(s1[j]);
+					j++;
+				}
+			}
+		}
+	}
+	else
+	{
+		if (config->flag == 'p')
+			ceros -= 2;
+		while (ceros > 0)
+		{
+			ft_putchar('0');
+			ceros--;
+		}
+		if (config->precision > 0)
+		{
+			if (config->flag == 'p')
+			{
+				ft_putchar('0');
+				ft_putchar('x');
+				//config->width += 2;
+			}
+			//j += 2;
+			while (j < len)
+			{
+				ft_putchar(s1[j]);
+				j++;
+			}
+		}
+	}
+	free(s1);
 }
 
 int ft_search(char *s1, t_config *config, va_list *args)
 {
-    int index;
-    int arg_count;
-    //gint validate;
-    int total_width;
+	int index;
+	int arg_count;
+	//gint validate;
+	int total_width;
 
-    index = 0;
-    arg_count = 0;
-    //validate = 0;
-    total_width = 0;
-    // char *s4;
+	index = 0;
+	arg_count = 0;
+	//validate = 0;
+	total_width = 0;
+	// char *s4;
 
-    // s4 = va_arg(*args, char *);
-    while (s1[index])
-    {
-        if (s1[index] == '%')
-        {
-            index++;
-            arg_count++;
-            //total_width++;
-            if (regex_validate(&index, s1, config) == 1)
-            {
-                if (config->flag == 's')
-                    printf_arg(config, args, arg_count);
-                if (config->flag == 'd' || config->flag == 'i')
-                    printf_arg_int(config, args, arg_count);
-                if (config->flag == 'u')
-                    printf_arg_unsigned_int(config, args, arg_count);
-                if (config->flag == 'x' || config->flag == 'X' || config->flag == 'p')
-                    printf_arg_hex(config, args, arg_count);
-                total_width += config->width;
-            }
-            *config = t_config_default;
-            // else
-            //     ft_putchar(s1[index]);
-        }
-        else
-            // {
-            ft_putchar(s1[index]);
-        //     index++;
-        // }
-        index++;
-        total_width++;
-    }
-    return (total_width - arg_count);
+	// s4 = va_arg(*args, char *);
+	while (s1[index])
+	{
+		if (s1[index] == '%')
+		{
+			index++;
+			arg_count++;
+			//total_width++;
+			if (regex_validate(&index, s1, config) == 1)
+			{
+				if (config->flag == 's')
+					printf_arg(config, args, arg_count);
+				if (config->flag == 'd' || config->flag == 'i')
+					printf_arg_int(config, args, arg_count);
+				if (config->flag == 'u')
+					printf_arg_unsigned_int(config, args, arg_count);
+				if (config->flag == 'x' || config->flag == 'X' || config->flag == 'p')
+					printf_arg_hex(config, args, arg_count);
+				total_width += config->width;
+			}
+			*config = t_config_default;
+			// else
+			//     ft_putchar(s1[index]);
+		}
+		else
+			// {
+			ft_putchar(s1[index]);
+		//     index++;
+		// }
+		index++;
+		total_width++;
+	}
+	return (total_width - arg_count);
 }
 
 int ft_printf(const char *s1, ...)
 {
-    //char *s1 = (char *)malloc(sizeof(char) * 100);
-    // int index;
-    int total;
-    // index = 0;
-    //s1 = "05.3s";
-    total = 0;
-    t_config config;
-    config = t_config_default;
-    va_list args;
+	//char *s1 = (char *)malloc(sizeof(char) * 100);
+	// int index;
+	int total;
+	// index = 0;
+	//s1 = "05.3s";
+	total = 0;
+	t_config config;
+	config = t_config_default;
+	va_list args;
 
-    va_start(args, s1);
-    total = ft_search((char *)s1, &config, &args);
-    va_end(args);
-    return (total);
-    // printf("is_valid:%d\n", regex_validate((char*)s1, &config));
-    // printf("width:%d\n", config.width);
-    // printf("width_length:%d\n", config.width_len);
-    // printf("precision:%d\n", config.precision);
-    // printf("precision length:%d\n", config.precision_len);
-    // printf("flag:%c\n", config.flag);
+	va_start(args, s1);
+	total = ft_search((char *)s1, &config, &args);
+	va_end(args);
+	return (total);
+	// printf("is_valid:%d\n", regex_validate((char*)s1, &config));
+	// printf("width:%d\n", config.width);
+	// printf("width_length:%d\n", config.width_len);
+	// printf("precision:%d\n", config.precision);
+	// printf("precision length:%d\n", config.precision_len);
+	// printf("flag:%c\n", config.flag);
 
-    //char *s2 = "jose";
+	//char *s2 = "jose";
 
-    //int width = 0;
-    // int precision = 3;
-    // width = (width >= config.width) ? config.width : width;
-    // width = config.width;
-    // if (precision > config.precision && config.precision > 0)
-    //     precision = config.precision;
+	//int width = 0;
+	// int precision = 3;
+	// width = (width >= config.width) ? config.width : width;
+	// width = config.width;
+	// if (precision > config.precision && config.precision > 0)
+	//     precision = config.precision;
 
-    // int z;
+	// int z;
 
-    // z = 0;
-    // ft_putchar('|');
-    // if (width > precision)
-    // {
-    //     if (config.is_minus)
-    //     {
-    //         while(z < precision)
-    //         {
-    //             ft_putchar(s2[z]);
-    //             z++;
-    //         }
-    //         while (z < width)
-    //         {
-    //             ft_putchar(config.width_char);
-    //             z++;
-    //         }
-    //     }
-    //     else
-    //     {
-    //          while (z < width - precision)
-    //         {
-    //             ft_putchar(config.width_char);
-    //             z++;
-    //         }
-    //         z = 0;
-    //         while(z < precision)
-    //         {
-    //             ft_putchar(s2[z]);
-    //             z++;
-    //         }
-    //     }
-    // }
-    // else
-    // {
-    //      while(z < precision)
-    //     {
-    //         ft_putchar(s2[z]);
-    //         z++;
-    //     }
-    // }
-    // ft_putchar('|');
-    // ft_putchar('\n');
-    //return (0);
+	// z = 0;
+	// ft_putchar('|');
+	// if (width > precision)
+	// {
+	//     if (config.is_minus)
+	//     {
+	//         while(z < precision)
+	//         {
+	//             ft_putchar(s2[z]);
+	//             z++;
+	//         }
+	//         while (z < width)
+	//         {
+	//             ft_putchar(config.width_char);
+	//             z++;
+	//         }
+	//     }
+	//     else
+	//     {
+	//          while (z < width - precision)
+	//         {
+	//             ft_putchar(config.width_char);
+	//             z++;
+	//         }
+	//         z = 0;
+	//         while(z < precision)
+	//         {
+	//             ft_putchar(s2[z]);
+	//             z++;
+	//         }
+	//     }
+	// }
+	// else
+	// {
+	//      while(z < precision)
+	//     {
+	//         ft_putchar(s2[z]);
+	//         z++;
+	//     }
+	// }
+	// ft_putchar('|');
+	// ft_putchar('\n');
+	//return (0);
 }
 
 //int main(void)
