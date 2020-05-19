@@ -664,11 +664,25 @@ void printf_arg_unsigned_int(t_config *config, va_list *args, int arg_count)
 	int len;
 	unsigned long int numb;
 	int is_negative;
+    
 	int ceros;
 
 	z = 0;
 	ceros = 0;
 	is_negative = 0;
+
+    	if (config->is_width_arg == 1)
+	{
+		config->width = va_arg(*args, int);
+		if (config->width < 0)
+		{
+			config->width *= -1;
+			config->is_minus = 1;
+		}
+	}
+	if (config->is_precision_arg == 1)
+		config->precision = va_arg(*args, int);
+
 	arg_count = arg_count + 1;
 	numb = va_arg(*args, unsigned int);
 	if (numb < 0)
@@ -802,6 +816,19 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 	z = 0;
 	ceros = 0;
 	is_negative = 0;
+
+    if (config->is_width_arg == 1)
+	{
+		config->width = va_arg(*args, int);
+		if (config->width < 0)
+		{
+			config->width *= -1;
+			config->is_minus = 1;
+		}
+	}
+	if (config->is_precision_arg == 1)
+		config->precision = va_arg(*args, int);
+
 	arg_count = arg_count + 1;
 	numb = va_arg(*args, unsigned int);
 	if (numb < 0)
