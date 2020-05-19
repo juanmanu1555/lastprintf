@@ -557,153 +557,7 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
     else if (config->width < len && config->precision == len)
         config->width = len;
 
-     
-
-
-
-        // if is_minus
-
-        // else if is_cero
-
-        // else 
-
-        if (config->is_minus)
-        {
-            z += len;
-            if (is_negative == 1)
-            {
-                ft_putchar('-');
-            }
-            while (ceros > 0)
-            {
-                ft_putchar('0');
-                ceros--;
-                z++;
-            }
-
-            // El error es que printeo el numero entero sin
-            // x caracteres y lo que necesito es decidir
-            // cuantos quiero 3 5 o el valor que sea.
-            if (config->precision > 0)
-                ft_putnbr(numb);
-
-            while (z < config->width)
-            {
-                ft_putchar(config->width_char);
-                z++;
-            }
-        }
-        else
-        {
-            if (is_negative == 1 && config->width_char == '0')
-            {
-                if (is_negative == 1)
-                    ft_putchar('-');
-                while (z < config->width - config->precision)
-                {
-                    ft_putchar(config->width_char);
-                    z++;
-                }
-            }
-            else 
-            {
-        
-                while (z < config->width - config->precision)
-                {
-                    ft_putchar(config->width_char);
-                    z++;
-                }
-                          if (is_negative == 1)
-                    ft_putchar('-');
-            }
-  
-          
-            z = 0;
-            while (ceros > 0)
-            {
-                ft_putchar('0');
-                ceros--;
-            }
-            if (config->precision > 0)
-                ft_putnbr(numb);
-        }
-      
-}
-
-void printf_arg_unsigned_int(t_config *config, va_list *args, int arg_count)
-{
-    // Posdata usar long en ints y unsigned long int en unsigned
-    int z;
-    int len;
-    unsigned long int numb;
-    int is_negative;
-    int ceros;
-
-    z = 0;
-    ceros = 0;
-    is_negative = 0;
-    arg_count = arg_count + 1;
-    numb = va_arg(*args, unsigned int);
-    if (numb < 0)
-    {
-        numb *= -1;
-        is_negative = 1;
-    }
-
-    len = ft_nbrlenlong(numb);
-    //config->width_char = ' ';
-
-    //printf("\nlen:%d\n", len);
-    //printf("\n%d\n", config->precision);
-    // if (config->precision == -1 && config->width > 0)
-    //printf("\n%c\n", config->width_char);
-    if (config->width > config->precision && config->precision != -1)
-        config->width_char = ' ';
-    if (config->precision > len)
-        ceros = config->precision - len;
-    else if (config->precision < len && config->precision > 0 || config->precision == -1)
-        config->precision = len;
-    //printf("\nprecision:%d\n", config->precision);
-
-    //if (config->precsion)
-
-    if (is_negative && config->precision != 0)
-    {
-        len += 1;
-        config->precision += 1;
-    }
-
-    if (config->is_minus == 1 && config->precision == 0)
-        config->is_minus = 0;
-
-    //printf("\nTelica%d\n", ceros);
-    if ((config->width == 0) || (config->width < config->precision))
-        config->width = config->precision;
-    else if (config->width < len)
-        config->width = len;
-
-
-    //  if minus
-    //     -negative write negative
-    //     -ceros
-    //     -number
-    //     -espacios.
-    // else if is-ceros
-    //     -negative
-    //     -ceros char
-    //     -ceros
-    //     -number
-    // else 
-    //     - espaces char
-    //     -negative
-    //     -ceros
-    //     -number
-    
-    
-    // if (config->width > config->precision)
-    // {
-        //config->width_char = ' ';
-        if (config->is_minus)
+           if (config->is_minus)
         {
             z += len;
             if (is_negative == 1)
@@ -779,17 +633,138 @@ void printf_arg_unsigned_int(t_config *config, va_list *args, int arg_count)
             if (config->precision > 0)
                 ft_putnbrlong(numb);
         }
-    // }
-    // else
-    // {
-    //     while (ceros > 0)
-    //     {
-    //         ft_putchar('0');
-    //         ceros--;
-    //     }
-    //     if (config->precision > 0)
-    //         ft_putnbrlong(numb);
-    // }
+
+      
+}
+
+void printf_arg_unsigned_int(t_config *config, va_list *args, int arg_count)
+{
+    // Posdata usar long en ints y unsigned long int en unsigned
+    int z;
+    int len;
+    unsigned long int numb;
+    int is_negative;
+    int ceros;
+
+    z = 0;
+    ceros = 0;
+    is_negative = 0;
+    arg_count = arg_count + 1;
+    numb = va_arg(*args, unsigned int);
+    if (numb < 0)
+    {
+        numb *= -1;
+        is_negative = 1;
+    }
+
+    len = ft_nbrlenlong(numb);
+    //config->width_char = ' ';
+
+    //printf("\nlen:%d\n", len);
+    //printf("\n%d\n", config->precision);
+    // if (config->precision == -1 && config->width > 0)
+    //printf("\n%c\n", config->width_char);
+    if (config->width > config->precision && config->precision != -1)
+        config->width_char = ' ';
+    if (config->precision > len)
+        ceros = config->precision - len;
+    else if (config->precision < len && config->precision > 0 || config->precision == -1)
+        config->precision = len;
+    //printf("\nprecision:%d\n", config->precision);
+
+    //if (config->precsion)
+
+    if (is_negative && config->precision != 0)
+    {
+        len += 1;
+        config->precision += 1;
+    }
+
+    if (config->is_minus == 1 && config->precision == 0)
+        config->is_minus = 0;
+
+    //printf("\nTelica%d\n", ceros);
+    if ((config->width == 0) || (config->width < config->precision))
+        config->width = config->precision;
+    else if (config->width < len)
+        config->width = len;
+
+
+    //  if minus
+    //     -negative write negative
+    //     -ceros
+    //     -number
+    //     -espacios.
+    // else if is-ceros
+    //     -negative
+    //     -ceros char
+    //     -ceros
+    //     -number
+    // else 
+    //     - espaces char
+    //     -negative
+    //     -ceros
+    //     -number
+    
+    
+    if (config->width > config->precision)
+    {
+        //config->width_char = ' ';
+        if (config->is_minus)
+        {
+            z += len;
+            if (is_negative == 1)
+            {
+                ft_putchar('-');
+            }
+            while (ceros > 0)
+            {
+                ft_putchar('0');
+                ceros--;
+                z++;
+            }
+
+            // El error es que printeo el numero entero sin
+            // x caracteres y lo que necesito es decidir
+            // cuantos quiero 3 5 o el valor que sea.
+            if (config->precision > 0)
+                ft_putnbrlong(numb);
+
+            while (z < config->width)
+            {
+                ft_putchar(config->width_char);
+                z++;
+            }
+        }
+        else
+        {
+
+            while (z < config->width - config->precision)
+            {
+                ft_putchar(config->width_char);
+                z++;
+            }
+
+            z = 0;
+            while (ceros > 0)
+            {
+                ft_putchar('0');
+                ceros--;
+            }
+            if (config->precision > 0)
+                ft_putnbrlong(numb);
+        }
+    }
+    else
+    {
+        while (ceros > 0)
+        {
+            ft_putchar('0');
+            ceros--;
+        }
+        if (config->precision > 0)
+            ft_putnbrlong(numb);
+    }
 }
 
 void printf_arg_hex(t_config *config, va_list *args, int arg_count)
