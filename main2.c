@@ -733,6 +733,8 @@ void printf_arg_unsigned_int(t_config *config, va_list *args, int arg_count)
         }
         else if (config->is_cero)
         {
+            if (config->width > config->precision && config->precision)
+                config->width_char = ' ';
              z += len;
             if (is_negative == 1)
             {
