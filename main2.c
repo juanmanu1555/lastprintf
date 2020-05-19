@@ -505,7 +505,14 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
 	//     else
 	//         p = len;
 	//         w = p;
-	if (config->width >= len && config->precision == -1)
+    if (config->width > 0 && config->precision == 0)
+    {
+        if (numb == 0)
+            len = 0;
+    }
+    else if (config->width == 0 && config->precision == 0)
+        config->width = 0;
+	else if (config->width >= len && config->precision == -1)
     {
         		config->precision = len;
 		if (config->is_cero == 0)
@@ -513,10 +520,10 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
 		else 
 			config->width_char = '0';
     }
-    else if (config->width <= len && config->precision == -1)
+    else if (config->width < len && config->precision == -1)
 	{
   		config->precision = len;
-          config->width = len
+          config->width = len;
 		if (config->is_cero == 0)
 			config->width_char = ' ';
 		else 
@@ -532,10 +539,8 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
 	{
 		if (config->precision != 0)
 			config->precision = len;
-		if (config->is_cero == 0)
+            config->is_cero = 0;
 			config->width_char = ' ';
-		else 
-			config->width_char = '0';
 	}
 	else if (config->width < len && config->precision > len)
 	{
@@ -552,7 +557,10 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
 		if (config->width < config->precision)
 			config->width = config->precision;
 		else    
+        {
 			config->width_char = ' ';
+            config->is_cero = 0;
+        }
 	}
 	else if (config->width == len && config->precision > len)
 	{
@@ -598,10 +606,10 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
 	}
 	else if (config->is_cero)
 	{
-		if (config->width == config->precision)
-			config->width_char = '0';
-        else 
-            config->width_char = ' ';
+		// if (config->width == config->precision)
+		// 	config->width_char = '0';
+        // else 
+        //     config->width_char = ' ';
 		//z += len;
 		if (is_negative == 1)
 		{
