@@ -838,9 +838,10 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 	else if (config->width < len)
 		config->width = len;
 
-			if (config->flag == 'p')
-					config->width += 2;
-				
+
+    
+	// if (config->flag == 'p')
+	// 	config->width += 2;		
 	if (config->width > config->precision)
 	{
 		//config->width_char = ' ';
@@ -860,12 +861,12 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 			// cuantos quiero 3 5 o el valor que sea.
 			if (config->precision > 0)
 			{
-				// if (config->flag == 'p')
-				// {
-				// 	ft_putchar('0');
-				// 	ft_putchar('x');
-				// 	config->width += 2;
-				// }
+				if (config->flag == 'p')
+				{
+					ft_putchar('0');
+					ft_putchar('x');
+					config->width += 2;
+				}
 				while (j < len)
 				{
 					ft_putchar(s1[j]);
@@ -881,8 +882,8 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 		}
 		else
 		{
-			if (config->flag == 'p')
-				config->width -= 2;
+			// if (config->flag == 'p')
+			// 	config->width -= 2;
 
 			while (z < config->width - config->precision)
 			{
@@ -895,7 +896,7 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 			{
 				ft_putchar('0');
 				ft_putchar('x');
-				config->width += 2;
+				// config->width += 2;
 			}
 			while (ceros > 0)
 			{
@@ -927,7 +928,7 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 			{
 				ft_putchar('0');
 				ft_putchar('x');
-				//config->width += 2;
+				config->width += 2;
 			}
 			//j += 2;
 			while (j < len)
