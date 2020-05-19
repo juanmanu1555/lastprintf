@@ -516,7 +516,10 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
     {
         if (config->precision != 0)
             config->precision = len;
-        config->width_char = ' ';
+        if (config->is_cero == 0)
+            config->width_char = ' ';
+        else 
+              config->width_char = '0';
     }
     else if (config->width < len && config->precision > len)
     {
@@ -555,6 +558,15 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
         config->width = len;
 
      
+
+
+
+        // if is_minus
+
+        // else if is_cero
+
+        // else 
+
         if (config->is_minus)
         {
             z += len;
@@ -604,11 +616,6 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
                           if (is_negative == 1)
                     ft_putchar('-');
             }
-            // }
-            // else
-            // {
-
-            // }
   
           
             z = 0;
@@ -675,8 +682,26 @@ void printf_arg_unsigned_int(t_config *config, va_list *args, int arg_count)
     else if (config->width < len)
         config->width = len;
 
-    if (config->width > config->precision)
-    {
+
+    //  if minus
+    //     -negative write negative
+    //     -ceros
+    //     -number
+    //     -espacios.
+    // else if is-ceros
+    //     -negative
+    //     -ceros char
+    //     -ceros
+    //     -number
+    // else 
+    //     - espaces char
+    //     -negative
+    //     -ceros
+    //     -number
+    
+    
+    // if (config->width > config->precision)
+    // {
         //config->width_char = ' ';
         if (config->is_minus)
         {
@@ -685,6 +710,8 @@ void printf_arg_unsigned_int(t_config *config, va_list *args, int arg_count)
             {
                 ft_putchar('-');
             }
+
+         
             while (ceros > 0)
             {
                 ft_putchar('0');
@@ -704,35 +731,63 @@ void printf_arg_unsigned_int(t_config *config, va_list *args, int arg_count)
                 z++;
             }
         }
-        else
+        else if (config->is_cero)
         {
-
+             z += len;
+            if (is_negative == 1)
+            {
+                ft_putchar('-');
+            }
             while (z < config->width - config->precision)
             {
                 ft_putchar(config->width_char);
                 z++;
             }
-
-            z = 0;
             while (ceros > 0)
             {
                 ft_putchar('0');
                 ceros--;
+                z++;
             }
+
+            if (config->precision > 0)
+                ft_putnbrlong(numb);
+
+         
+        }
+        else
+        {
+            z += len;
+            while (z < config->width - config->precision)
+            {
+                ft_putchar(config->width_char);
+                z++;
+            }
+            if (is_negative == 1)
+            {
+                ft_putchar('-');
+            }
+            while (ceros > 0)
+            {
+                ft_putchar('0');
+                ceros--;
+                z++;
+            }
+
             if (config->precision > 0)
                 ft_putnbrlong(numb);
         }
-    }
-    else
-    {
-        while (ceros > 0)
-        {
-            ft_putchar('0');
-            ceros--;
-        }
-        if (config->precision > 0)
-            ft_putnbrlong(numb);
-    }
+    // }
+    // else
+    // {
+    //     while (ceros > 0)
+    //     {
+    //         ft_putchar('0');
+    //         ceros--;
+    //     }
+    //     if (config->precision > 0)
+    //         ft_putnbrlong(numb);
+    // }
 }
 
 void printf_arg_hex(t_config *config, va_list *args, int arg_count)
