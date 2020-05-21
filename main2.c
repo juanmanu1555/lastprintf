@@ -836,7 +836,8 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
     {
         if (config->flag == 'p')
         {
-            while(z < config->width - 3)
+			const int number = config->precision < 3 ? (config->width - 3 ) : (config->width - 2);
+            while(z < number)
             {
                 ft_putchar(config->width_char);
                 z++;
@@ -862,7 +863,8 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 						config->width = 3;
 			}
 			else
-			config->width = 2;
+			if (config->width < 3)
+				config->width = 2;
         }
 		
         return;
