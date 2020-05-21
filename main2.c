@@ -349,6 +349,103 @@ int regex_validate(int *index, char *s1, t_config *config)
 //     if (config->flag == 'd')
 //         return (flag_d(config, args))
 // }
+void printf_arg_char(t_config *config, va_list *args, int arg_count)
+{
+
+	int z;
+	int len;
+	char s3[1];
+	char *s2;
+	int p;
+
+	z = 0;
+	arg_count = arg_count + 1;
+
+	if (config->is_width_arg == 1)
+	{
+		config->width = va_arg(*args, int);
+		if (config->width < 0)
+		{
+			config->width *= -1;
+			config->is_minus = 1;
+		}
+	}
+	if (config->is_precision_arg == 1)
+		config->precision = va_arg(*args, int);
+
+	//printf("Este es el valor de width por argumento:%d", p);
+	s3[0] = va_arg(*args, int );
+	// Aqui extraemos el argumento que nos pasan lo que voy a hacer es una funcion donde pille todos los casos
+	// de si es string int hexadecimal decimal float etc y meterlo todo en string asi es mucho mas facil trabajar con ello.
+	// if ((s3[0] = va_arg(*args, char )) == NULL)
+	// {
+
+	// 	s3 = ft_strdup("(null)");
+
+	// 	// nose si esto es necesario dado que en este momento no tengo lo test. y no estoy en MAC
+	// 	// en linux si te pasan NULL y precision menor de 6 el "(null)" nose escribe ni cuenta.
+	// 	// if (config->precision >= 6 || config->precision == -1)
+	// 	//     s3 = ft_strdup("(null)");
+	// 	//     else
+	// 	//       s3 = ft_strdup("");
+	// 	// config->width += 6;
+	// 	//printf("%d\n", config->width);
+	// }
+
+	s2 = ft_strdup(s3);
+	len = (int)ft_strlen(s2);
+
+	if (config->precision > len || config->precision == -1)
+		config->precision = len;
+
+	if ((config->width == 0) || (config->width < config->precision))
+		config->width = config->precision;
+
+	// printf("config width:%d\n", config->width);
+	// printf("config precision:%d\n", config->precision);
+
+	if (config->width > config->precision)
+	{
+		if (config->is_minus)
+		{
+			while (z < config->precision)
+			{
+				ft_putchar(s2[z]);
+				z++;
+			}
+
+			while (z < config->width)
+			{
+				ft_putchar(config->width_char);
+				z++;
+			}
+		}
+		else
+		{
+			while (z < config->width - config->precision)
+			{
+				ft_putchar(config->width_char);
+				z++;
+			}
+			z = 0;
+			while (z < config->precision)
+			{
+				ft_putchar(s2[z]);
+				z++;
+			}
+		}
+	}
+	else
+	{
+		while (z < config->precision)
+		{
+			ft_putchar(s2[z]);
+			z++;
+		}
+	}
+	free(s2);
+}
+
 
 void printf_arg(t_config *config, va_list *args, int arg_count)
 {
@@ -805,7 +902,7 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 {
 	int z;
 	int len;
-	unsigned long int numb;
+	unsigned long numb;
 	char *s1;
 	char *s2;
     char *s3;
@@ -832,7 +929,7 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 
 	arg_count = arg_count + 1;
 
-  if ((numb = va_arg(*args, unsigned int)) == 0 && config->flag == 'p')
+  if ((numb = va_arg(*args, unsigned long)) == 0 && config->flag == 'p')
     {
 		// printf("no entra aki");
         if (config->flag == 'p')
@@ -1004,9 +1101,14 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 	}
 	else
 	{
-		printf("width menor");
+		//printf("width menor");
 		if (config->flag == 'p')
+	{
 			ceros -= 2;
+				ft_putchar('0');
+				ft_putchar('x');
+				config->width += 2;
+	}
 		while (ceros > 0)
 		{
 			ft_putchar('0');
@@ -1014,12 +1116,7 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 		}
 		if (config->precision > 0)
 		{
-			if (config->flag == 'p')
-			{
-				ft_putchar('0');
-				ft_putchar('x');
-				config->width += 2;
-			}
+			
 			//j += 2;
 			while (j < len)
 			{
@@ -1054,6 +1151,8 @@ int ft_search(char *s1, t_config *config, va_list *args)
 			//total_width++;
 			if (regex_validate(&index, s1, config) == 1)
 			{
+				if (config->flag == 'c')
+					printf_arg_char(config, args, arg_count);
 				if (config->flag == 's')
 					printf_arg(config, args, arg_count);
 				if (config->flag == 'd' || config->flag == 'i')
