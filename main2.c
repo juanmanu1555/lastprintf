@@ -808,6 +808,7 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 	unsigned long int numb;
 	char *s1;
 	char *s2;
+    char *s3;
 	int is_negative;
 	int ceros;
 	int j;
@@ -830,6 +831,23 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 		config->precision = va_arg(*args, int);
 
 	arg_count = arg_count + 1;
+
+    if ((s3 = va_arg(*args, char *)) == NULL)
+    {
+        if (config->flag == 'p')
+        {
+            while(z < config->width - 3)
+            {
+                ft_putchar(config->width_char);
+                z++;
+            }
+            ft_putchar('0');
+            ft_putchar('x');
+            ft_putchar('0');
+        }
+		config->width = 3;
+        return;
+    }
 	numb = va_arg(*args, unsigned int);
 	if (numb < 0)
 	{
