@@ -843,9 +843,28 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
             }
             ft_putchar('0');
             ft_putchar('x');
-            ft_putchar('0');
+			if (config->precision > 0)			
+         	{	 
+				 	if (config->width < 3)
+					config->width = 2;
+				  while (z < config->precision)
+				  {
+					  ft_putchar('0');
+					  z++;
+					  config->width += 1;
+				  }
+				//   if (config->width < 1)
+				// 		config->width = 2;
+			} else if (config->precision == -1)
+			{
+				ft_putchar('0');
+				if (config->width < 3)
+						config->width = 3;
+			}
+			else
+			config->width = 2;
         }
-		config->width = 3;
+		
         return;
     }
 	numb = va_arg(*args, unsigned int);
