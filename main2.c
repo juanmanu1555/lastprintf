@@ -128,7 +128,7 @@ char *ft_utohex(unsigned long int numb, char flag)
 	j = 0;
 	//printf("\n%lu\n", res);
 
-	if (flag == 'x')
+	if (flag == 'x' || flag == 'p')
 		hexa_array = ft_strdup("0123456789abcdef");
 	else if (flag = 'X')
 		hexa_array = ft_strdup("0123456789ABCDEF");
@@ -832,7 +832,7 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 
 	arg_count = arg_count + 1;
 
-  if ((numb = va_arg(*args, unsigned int)) == 0)
+  if ((numb = va_arg(*args, unsigned int)) == 0 && config->flag == 'p')
     {
 		// printf("no entra aki");
         if (config->flag == 'p')
@@ -907,7 +907,8 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 		config->width_char = ' ';
 
 	if (config->precision > len)
-		ceros = config->precision + 2 - len;
+		ceros = config->flag == 'p' ? (config->precision + 2 - len) : (config->precision - len);
+	
 	else if (config->precision < len && config->precision > 0 || config->precision == -1)
 		config->precision = len;
 
@@ -972,20 +973,20 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 		{
 			// if (config->flag == 'p')
 			// 	config->width -= 2;
-
-			while (z < config->width - config->precision - 2)
+			int len_width_char =  config->flag == 'p' ? (config->width - config->precision - 2) : (config->width -config->precision);
+			while (z < len_width_char)
 			{
 				ft_putchar(config->width_char);
 				z++;
 			}
-
-			z = 0;
 			if (config->flag == 'p')
 			{
 				ft_putchar('0');
 				ft_putchar('x');
 				// config->width += 2;
 			}
+			z = 0;
+		
 			while (ceros > 0)
 			{
 				ft_putchar('0');
@@ -1003,6 +1004,7 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 	}
 	else
 	{
+		printf("width menor");
 		if (config->flag == 'p')
 			ceros -= 2;
 		while (ceros > 0)
