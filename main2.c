@@ -354,13 +354,14 @@ void printf_arg_char(t_config *config, va_list *args, int arg_count)
 
 	int z;
 	int len;
-	char s3[1];
-	char *s2;
+	int s1;
+	int s2;
 	int p;
 
 	z = 0;
-	arg_count = arg_count + 1;
 
+	
+	arg_count = arg_count + 1;
 	if (config->is_width_arg == 1)
 	{
 		config->width = va_arg(*args, int);
@@ -374,7 +375,7 @@ void printf_arg_char(t_config *config, va_list *args, int arg_count)
 		config->precision = va_arg(*args, int);
 
 	//printf("Este es el valor de width por argumento:%d", p);
-	s3[0] = va_arg(*args, int );
+	s1 = va_arg(*args, int );
 	// Aqui extraemos el argumento que nos pasan lo que voy a hacer es una funcion donde pille todos los casos
 	// de si es string int hexadecimal decimal float etc y meterlo todo en string asi es mucho mas facil trabajar con ello.
 	// if ((s3[0] = va_arg(*args, char )) == NULL)
@@ -392,8 +393,8 @@ void printf_arg_char(t_config *config, va_list *args, int arg_count)
 	// 	//printf("%d\n", config->width);
 	// }
 
-	s2 = ft_strdup(s3);
-	len = (int)ft_strlen(s2);
+	s2 = s1;
+	len = 1;
 
 	if (config->precision > len || config->precision == -1)
 		config->precision = len;
@@ -408,12 +409,8 @@ void printf_arg_char(t_config *config, va_list *args, int arg_count)
 	{
 		if (config->is_minus)
 		{
-			while (z < config->precision)
-			{
-				ft_putchar(s2[z]);
-				z++;
-			}
-
+		
+			ft_putchar(s2);
 			while (z < config->width)
 			{
 				ft_putchar(config->width_char);
@@ -427,23 +424,14 @@ void printf_arg_char(t_config *config, va_list *args, int arg_count)
 				ft_putchar(config->width_char);
 				z++;
 			}
-			z = 0;
-			while (z < config->precision)
-			{
-				ft_putchar(s2[z]);
-				z++;
-			}
+			z = 0;		
+			ft_putchar(s2);
+		
+			
 		}
 	}
 	else
-	{
-		while (z < config->precision)
-		{
-			ft_putchar(s2[z]);
-			z++;
-		}
-	}
-	free(s2);
+			ft_putchar(s2);
 }
 
 
