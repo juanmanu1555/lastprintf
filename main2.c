@@ -832,8 +832,9 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 
 	arg_count = arg_count + 1;
 
-    if ((s3 = va_arg(*args, char *)) == NULL)
+  if ((numb = va_arg(*args, unsigned int)) == 0)
     {
+		// printf("no entra aki");
         if (config->flag == 'p')
         {
 			// if (config->width == 0 && config->precision == -1)
@@ -889,7 +890,8 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 		
         return;
     }
-	numb = va_arg(*args, unsigned int);
+
+
 	if (numb < 0)
 	{
 		numb *= -1;
@@ -905,7 +907,7 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 		config->width_char = ' ';
 
 	if (config->precision > len)
-		ceros = config->precision - len;
+		ceros = config->precision + 2 - len;
 	else if (config->precision < len && config->precision > 0 || config->precision == -1)
 		config->precision = len;
 
@@ -971,7 +973,7 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 			// if (config->flag == 'p')
 			// 	config->width -= 2;
 
-			while (z < config->width - config->precision)
+			while (z < config->width - config->precision - 2)
 			{
 				ft_putchar(config->width_char);
 				z++;
