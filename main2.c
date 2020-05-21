@@ -863,8 +863,10 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 						config->width = 3;
 			}
 			else
+			{
 			if (config->width < 3)
 				config->width = 2;
+			}
         }
 		
         return;
