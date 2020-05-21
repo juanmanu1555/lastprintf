@@ -836,27 +836,45 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
     {
         if (config->flag == 'p')
         {
-			const int number = config->precision < 3 ? (config->width - 3 ) : (config->width - 2);
-            while(z < number)
+			// if (config->width == 0 && config->precision == -1)
+			// {
+			// 	ft_putchar('0');
+			// 	ft_putchar('x');
+			// 	ft_putchar('0');
+			// 	config->width = 3;
+			// 	return;
+			// }
+			// const int number = config->precision < 3  ? (config->width - 2 ) : (config->width - 3);
+			int precisionReal = 0;
+			if (config->precision == -1)
+				precisionReal = 3;
+			else if (config->precision == 0)
+				precisionReal = 2;
+			else if (config->precision > 0)
+				precisionReal = (config->precision + 2); 
+		
+			const int spaces = config->width - precisionReal;
+            while(z < spaces)
             {
                 ft_putchar(config->width_char);
                 z++;
             }
             ft_putchar('0');
             ft_putchar('x');
+			 z = 0;
 			if (config->precision > 0)			
          	{	 
-				 	if (config->width < 3)
-					config->width = 2;
+				 	if (config->width < config->precision)
+						config->width = precisionReal;
+				 
 				  while (z < config->precision)
 				  {
 					  ft_putchar('0');
 					  z++;
-					  config->width += 1;
+					//   config->width += 1;
 				  }
-				//   if (config->width < 1)
-				// 		config->width = 2;
-			} else if (config->precision == -1)
+			} 
+			else if (config->precision == -1)
 			{
 				ft_putchar('0');
 				if (config->width < 3)
@@ -864,8 +882,8 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 			}
 			else
 			{
-			if (config->width < 3)
-				config->width = 2;
+				if (config->width < 3)
+					config->width = 2;
 			}
         }
 		
