@@ -883,6 +883,7 @@ void printf_arg_unsigned_int(t_config *config, va_list *args, int arg_count)
 		if (config->precision > 0)
 			ft_putnbrlong(numb);
 	}
+
 }
 
 void printf_arg_hex(t_config *config, va_list *args, int arg_count)
