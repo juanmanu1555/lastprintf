@@ -434,7 +434,6 @@ void printf_arg_char(t_config *config, va_list *args, int arg_count)
 			ft_putchar(s2);
 }
 
-
 void printf_arg(t_config *config, va_list *args, int arg_count)
 {
 	//printf("entra en printf arg");
@@ -1048,8 +1047,7 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 				}
 			}
 			z = 0;
-			int len_width_char =  config->flag == 'p' ? (config->width - config->precision - 2) : (config->width -config->precision);
-			
+			int len_width_char =  config->flag == 'p' ? (config->width - config->precision - 2) : (config->width -config->precision);			
 			while (z < len_width_char)
 			{
 				ft_putchar(config->width_char);
@@ -1121,31 +1119,14 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 
 void printf_arg_module(t_config *config, va_list *args)
 {
-	
-	int z;
+		int z;
 	int len;
-	int s1;
-	int s2;
+	char s2;
+
 	int p;
 
 	z = 0;
-
-	
-	arg_count = arg_count + 1;
-	if (config->is_width_arg == 1)
-	{
-		config->width = va_arg(*args, int);
-		if (config->width < 0)
-		{
-			config->width *= -1;
-			config->is_minus = 1;
-		}
-	}
-	if (config->is_precision_arg == 1)
-		config->precision = va_arg(*args, int);
-
-
-	s2 = s1;
+	s2 = '%';
 	len = 1;
 
 	if (config->precision > len || config->precision == -1)
@@ -1153,9 +1134,6 @@ void printf_arg_module(t_config *config, va_list *args)
 
 	if ((config->width == 0) || (config->width < config->precision))
 		config->width = config->precision;
-
-	// printf("config width:%d\n", config->width);
-	// printf("config precision:%d\n", config->precision);
 
 	if (config->width > config->precision)
 	{
