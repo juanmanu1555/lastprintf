@@ -1138,10 +1138,9 @@ void printf_arg_module(t_config *config, va_list *args)
 	if (config->width > config->precision)
 	{
 		if (config->is_minus)
-		{
-		
+		{		
 			ft_putchar(s2);
-			while (z < config->width)
+			while (z < config->width - 1)
 			{
 				ft_putchar(config->width_char);
 				z++;
@@ -1155,9 +1154,7 @@ void printf_arg_module(t_config *config, va_list *args)
 				z++;
 			}
 			z = 0;		
-			ft_putchar(s2);
-		
-			
+			ft_putchar(s2);			
 		}
 	}
 	else
@@ -1184,22 +1181,23 @@ int ft_search(char *s1, t_config *config, va_list *args)
 		{
 			index++;
 			arg_count++;
-			//total_width++;
 			if (regex_validate(&index, s1, config) == 1)
 			{
 				if (config->flag == 'c')
 					printf_arg_char(config, args, arg_count);
-				if (config->flag == 's')
+				else if (config->flag == 's')
 					printf_arg(config, args, arg_count);
-				if (config->flag == 'd' || config->flag == 'i')
+				else if  (config->flag == 'd' || config->flag == 'i')
 					printf_arg_int(config, args, arg_count);
-				if (config->flag == 'u')
+				else if  (config->flag == 'u')
 					printf_arg_unsigned_int(config, args, arg_count);
-				if (config->flag == 'x' || config->flag == 'X' || config->flag == 'p')
+				else if  (config->flag == 'x' || config->flag == 'X' || config->flag == 'p')
 					printf_arg_hex(config, args, arg_count);
-				if (config->flag == '%')
+				else if  (config->flag == '%')
 					printf_arg_module(config, args);
 				total_width += config->width;
+			} else {
+				return (total_width - arg_count + 1);
 			}
 			*config = t_config_default;
 			// else
