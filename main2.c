@@ -238,7 +238,7 @@ int validate_flag(int *index, char *s1, t_config *config)
 		return (0);
 	if (s1[*index] != 'c' && s1[*index] != 's' && s1[*index] != 'p' &&
 			s1[*index] != 'd' && s1[*index] != 'i' && s1[*index] != 'i' && s1[*index] != 'u' &&
-			s1[*index] != 'x' && s1[*index] != 'X')
+			s1[*index] != 'x' && s1[*index] != 'X' && s1[*index] != '%')
 		return (0);
 	config->flag = s1[*index];
 	return (1);
@@ -917,8 +917,8 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 
 	arg_count = arg_count + 1;
 
-  if ((numb = va_arg(*args, unsigned long)) == 0 && config->flag == 'p')
-    {
+  	if ((numb = va_arg(*args, unsigned long)) == 0 && config->flag == 'p')
+	{
 		// printf("no entra aki");
         if (config->flag == 'p')
         {
@@ -1015,21 +1015,21 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 
     
 	// if (config->flag == 'p')
-	// 	config->width += 2;		
+	// 	config->width += 2;	
+	
 	if (config->width > config->precision)
 	{
 		//config->width_char = ' ';
 		if (config->is_minus)
 		{
-			z += len;
-
+			//z += len;
+			
 			while (ceros > 0)
 			{
 				ft_putchar('0');
 				ceros--;
 				z++;
 			}
-
 			// El error es que printeo el numero entero sin
 			// x caracteres y lo que necesito es decidir
 			// cuantos quiero 3 5 o el valor que sea.
@@ -1039,7 +1039,7 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 				{
 					ft_putchar('0');
 					ft_putchar('x');
-					config->width += 2;
+					//config->width += 2;
 				}
 				while (j < len)
 				{
@@ -1047,8 +1047,10 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 					j++;
 				}
 			}
-
-			while (z < config->width)
+			z = 0;
+			int len_width_char =  config->flag == 'p' ? (config->width - config->precision - 2) : (config->width -config->precision);
+			
+			while (z < len_width_char)
 			{
 				ft_putchar(config->width_char);
 				z++;
@@ -1059,6 +1061,7 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 			// if (config->flag == 'p')
 			// 	config->width -= 2;
 			int len_width_char =  config->flag == 'p' ? (config->width - config->precision - 2) : (config->width -config->precision);
+			
 			while (z < len_width_char)
 			{
 				ft_putchar(config->width_char);
@@ -1116,6 +1119,73 @@ void printf_arg_hex(t_config *config, va_list *args, int arg_count)
 	free(s1);
 }
 
+void printf_arg_module(t_config *config, va_list *args)
+{
+	
+	int z;
+	int len;
+	int s1;
+	int s2;
+	int p;
+
+	z = 0;
+
+	
+	arg_count = arg_count + 1;
+	if (config->is_width_arg == 1)
+	{
+		config->width = va_arg(*args, int);
+		if (config->width < 0)
+		{
+			config->width *= -1;
+			config->is_minus = 1;
+		}
+	}
+	if (config->is_precision_arg == 1)
+		config->precision = va_arg(*args, int);
+
+
+	s2 = s1;
+	len = 1;
+
+	if (config->precision > len || config->precision == -1)
+		config->precision = len;
+
+	if ((config->width == 0) || (config->width < config->precision))
+		config->width = config->precision;
+
+	// printf("config width:%d\n", config->width);
+	// printf("config precision:%d\n", config->precision);
+
+	if (config->width > config->precision)
+	{
+		if (config->is_minus)
+		{
+		
+			ft_putchar(s2);
+			while (z < config->width)
+			{
+				ft_putchar(config->width_char);
+				z++;
+			}
+		}
+		else
+		{
+			while (z < config->width - config->precision)
+			{
+				ft_putchar(config->width_char);
+				z++;
+			}
+			z = 0;		
+			ft_putchar(s2);
+		
+			
+		}
+	}
+	else
+			ft_putchar(s2);
+}
+
 int ft_search(char *s1, t_config *config, va_list *args)
 {
 	int index;
@@ -1149,6 +1219,8 @@ int ft_search(char *s1, t_config *config, va_list *args)
 					printf_arg_unsigned_int(config, args, arg_count);
 				if (config->flag == 'x' || config->flag == 'X' || config->flag == 'p')
 					printf_arg_hex(config, args, arg_count);
+				if (config->flag == '%')
+					printf_arg_module(config, args);
 				total_width += config->width;
 			}
 			*config = t_config_default;
