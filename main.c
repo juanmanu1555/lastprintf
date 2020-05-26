@@ -106,8 +106,8 @@ const int INT_MIN = -2147483648;
     // return (0);
 
    
-           count = (ft_printf("%s", mx_s) + ft_printf("%x", mx_u));
-    printf("\ncount:%d\n", count);
+    count = ft_printf("|%-5c|", '\0');
+    printf("\ncount:%d\n", count -2);
     return (0);
 }
 
