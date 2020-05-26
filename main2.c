@@ -374,6 +374,8 @@ void printf_arg_char(t_config *config, va_list *args, int arg_count)
 	if (config->is_precision_arg == 1)
 		config->precision = va_arg(*args, int);
 
+	if (config->precision < -1) 
+		config->precision = -1;
 	//printf("Este es el valor de width por argumento:%d", p);
 	s1 = va_arg(*args, int );
 	// Aqui extraemos el argumento que nos pasan lo que voy a hacer es una funcion donde pille todos los casos
@@ -609,7 +611,6 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
 	}
 	else if (config->width >= len && config->precision == -1)
     {
-
         		config->precision = len;
 		if (!config->is_minus)
 		{
@@ -636,10 +637,13 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
 	}
 	else if (config->width > len && config->precision < len)
 	{
-		if (config->precision != 0)
+			printf("entro");
+
+		if (config->precision != 0) 
 			config->precision = len;
-            config->is_cero = 0;
-			// config->width_char = ' ';
+        config->is_cero = 0;
+		// if (config->is_minus)
+			 config->width_char = ' ';
 	}
 	else if (config->width < len && config->precision > len)
 	{
