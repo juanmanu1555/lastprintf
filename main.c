@@ -105,10 +105,14 @@ const int INT_MIN = -2147483648;
     // printf("\ncount:%d\n", count -2);
     // return (0);
 
-   
-    count = ft_printf("|%-5c|", '\0');
+  
+    count = ft_printf("|%08.3i|", 8375);
     printf("\ncount:%d\n", count -2);
     return (0);
+
+    // count = ft_printf("|%-5c|", '\0');
+    // printf("\ncount:%d\n", count -2);
+    // return (0);
 }
 
 
