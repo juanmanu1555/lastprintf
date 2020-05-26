@@ -92,7 +92,7 @@ char *ft_strinv(char *s1)
 	len = ft_strlen(s1);
 	//printf("\n%llu\n", len);
 	//printf("\n%s\n", s1);
-	if (!(s2 = malloc(sizeof(char) * (len + 1))))
+	if (!(s2 = (char *)malloc((len + 1) * sizeof(char))))
 		return (NULL);
 	while (len > 0)
 	{
@@ -122,7 +122,7 @@ char *ft_utohex(unsigned long int numb, char flag)
 		s1[1] = '\0';
 		return (s1);
 	}
-	if (!(s2 = malloc(sizeof(char) * (8 + 1))))
+	if (!(s1 = (char *)malloc((8 + 1) * sizeof(char))))
 		return (NULL);
 	res = numb;
 	div = 0;
