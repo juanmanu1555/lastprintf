@@ -24,7 +24,7 @@ void ft_putnbr(int numb)
 	ft_putchar((numb % 10) + '0');
 }
 
-int ft_nbrlen(int numb)
+int ft_nbrlen(long numb)
 {
 	int z;
 
@@ -436,6 +436,8 @@ void printf_arg_char(t_config *config, va_list *args, int arg_count)
 
 void printf_arg(t_config *config, va_list *args, int arg_count)
 {
+	// 	printf("config->is_width_arg:%d\n", config->is_width_arg);
+	// printf("config->is_precision_arg:%d\n", config->is_precision_arg);
 	//printf("entra en printf arg");
 	int z;
 	int len;
@@ -459,7 +461,8 @@ void printf_arg(t_config *config, va_list *args, int arg_count)
 		config->precision = va_arg(*args, int);
 
 	//printf("Este es el valor de width por argumento:%d", p);
-
+	if (config->precision < -1) 
+		config->precision = -1;
 	// Aqui extraemos el argumento que nos pasan lo que voy a hacer es una funcion donde pille todos los casos
 	// de si es string int hexadecimal decimal float etc y meterlo todo en string asi es mucho mas facil trabajar con ello.
 	if ((s3 = va_arg(*args, char *)) == NULL)
@@ -476,7 +479,7 @@ void printf_arg(t_config *config, va_list *args, int arg_count)
 		// config->width += 6;
 		//printf("%d\n", config->width);
 	}
-
+	// printf("%d", config->precision);
 	s2 = ft_strdup(s3);
 	len = (int)ft_strlen(s2);
 
@@ -551,18 +554,23 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
 		{
 			config->width *= -1;
 			config->is_minus = 1;
+			config->width_char = ' ';
 		}
 	}
 	if (config->is_precision_arg == 1)
 		config->precision = va_arg(*args, int);
 
+	if (config->precision < -1) 
+		config->precision = -1;
 	arg_count = arg_count + 1;
 	numb = (long)va_arg(*args, int);
+	// printf("%ld", numb);
 	if (numb < 0)
 	{
 		numb *= -1;
 		is_negative = 1;
 	}
+
 	len = ft_nbrlen(numb);
 
 	//printf("testing len %i\n", len);
@@ -589,20 +597,27 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
 	//     else
 	//         p = len;
 	//         w = p;
+	// printf("len:%d", len);
     if (config->width > 0 && config->precision == 0)
     {
         if (numb == 0)
             len = 0;
     }
     else if (config->width == 0 && config->precision == 0)
+	{
         config->width = 0;
+	}
 	else if (config->width >= len && config->precision == -1)
     {
+
         		config->precision = len;
-		if (config->is_cero == 0)
-			config->width_char = ' ';
-		else 
-			config->width_char = '0';
+		if (!config->is_minus)
+		{
+			if (config->is_cero == 0)
+				config->width_char = ' ';
+			else 
+				config->width_char = '0';
+		}
     }
     else if (config->width < len && config->precision == -1)
 	{
@@ -624,7 +639,7 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
 		if (config->precision != 0)
 			config->precision = len;
             config->is_cero = 0;
-			config->width_char = ' ';
+			// config->width_char = ' ';
 	}
 	else if (config->width < len && config->precision > len)
 	{
@@ -646,6 +661,13 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
             config->is_cero = 0;
         }
 	}
+	else if (config->width > len && config->precision == len)
+	{
+			if (is_negative)
+			config->precision += 1;
+			ceros = 0;
+			config->width_char = ' ';			
+	}
 	else if (config->width == len && config->precision > len)
 	{
 		if (is_negative)
@@ -654,12 +676,13 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
 		config->width = config->precision;
 	}
 	else if (config->width < len && config->precision == len) 
+	{
 		config->width = len;
-
-
-
-
-
+	}	
+	
+	
+	
+	
 	if (config->is_minus)
 	{
 		z += len;
