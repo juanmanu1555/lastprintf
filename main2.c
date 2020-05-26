@@ -122,7 +122,8 @@ char *ft_utohex(unsigned long int numb, char flag)
 		s1[1] = '\0';
 		return (s1);
 	}
-	s1 = malloc(8);
+	if (!(s2 = malloc(sizeof(char) * (8 + 1))))
+		return (NULL);
 	res = numb;
 	div = 0;
 	j = 0;
@@ -162,6 +163,7 @@ char *ft_utohex(unsigned long int numb, char flag)
 		// // printf("\n%lu\n", numb);
 		j++;
 	}
+	s1[j] = '\0';
 	//printf("\n%lu\n", res);
 	s2 = ft_strinv(s1);
 	free(s1);
@@ -407,8 +409,8 @@ void printf_arg_char(t_config *config, va_list *args, int arg_count)
 	// printf("config width:%d\n", config->width);
 	// printf("config precision:%d\n", config->precision);
 
-if (s1 == 0)
-			config->width -= 1;
+// if (s1 == 0)
+// 			config->width -= 1;
 
 	if (config->width > config->precision)
 	{
@@ -416,7 +418,7 @@ if (s1 == 0)
 		{
 		
 			ft_putchar(s2);
-			while (z < config->width)
+			while (z < config->width -1)
 			{
 				ft_putchar(config->width_char);
 				z++;
