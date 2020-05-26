@@ -382,7 +382,7 @@ void printf_arg_char(t_config *config, va_list *args, int arg_count)
 	// de si es string int hexadecimal decimal float etc y meterlo todo en string asi es mucho mas facil trabajar con ello.
 	// if ((s3[0] = va_arg(*args, char )) == NULL)
 	// {
-
+		
 	// 	s3 = ft_strdup("(null)");
 
 	// 	// nose si esto es necesario dado que en este momento no tengo lo test. y no estoy en MAC
@@ -406,6 +406,9 @@ void printf_arg_char(t_config *config, va_list *args, int arg_count)
 
 	// printf("config width:%d\n", config->width);
 	// printf("config precision:%d\n", config->precision);
+
+if (s1 == 0)
+			config->width -= 1;
 
 	if (config->width > config->precision)
 	{
@@ -637,8 +640,6 @@ void printf_arg_int(t_config *config, va_list *args, int arg_count)
 	}
 	else if (config->width > len && config->precision < len)
 	{
-			printf("entro");
-
 		if (config->precision != 0) 
 			config->precision = len;
         config->is_cero = 0;
